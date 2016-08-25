@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relative_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:drawableRight="@drawable/icon_arrow_right"
+                android:gravity="center_vertical"
+                android:hint="预约时间"
+                android:padding="@dimen/layout_padding_l" />
+
+            <View
+                style="@style/line_horStyle"
+                android:layout_marginLeft="@dimen/layout_margin_ml" />
+
+
+            <TextView
+                android:id="@+id/tv_locale"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:drawableRight="@drawable/icon_arrow_right"
+                android:gravity="center_vertical"
+                android:hint="练车地点"
+                android:padding="@dimen/layout_padding_l"
+                android:text="武汉" />
+
+            <View
+                style="@style/line_horStyle"
+                android:layout_marginLeft="@dimen/layout_margin_ml" />
+
+
+            <TextView
+                android:id="@+id/tv_timeLength"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:drawableRight="@drawable/icon_arrow_right"
+                android:gravity="center_vertical"
+                android:hint="练车时长"
+                android:padding="@dimen/layout_padding_l" />
+
+            <View
+                style="@style/line_horStyle"
+                android:layout_marginLeft="@dimen/layout_margin_ml" />
+
+
+            <TextView
+                android:id="@+id/tv_subject"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:drawableRight="@drawable/icon_arrow_right"
+                android:gravity="center_vertical"
+                android:hint="培训科目"
+                android:padding="@dimen/layout_padding_l" />
+
+            <View
+                style="@style/line_horStyle"
+                android:layout_marginLeft="@dimen/layout_margin_ml" />
+
+
+            <TextView
+                android:id="@+id/tv_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:drawableRight="@drawable/icon_arrow_right"
+                android:gravity="center_vertical"
+                android:hint="服务类型"
+                android:padding="@dimen/layout_padding_l" />
+
+
+            <View
+                style="@style/line_horStyle"
+                android:layout_marginLeft="@dimen/layout_margin_ml" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/layout_padding_l">
+
+                <TextView
+                    android:id="@+id/fapiao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="帮他人预约"
+                    android:textColor="@color/gray" />
+
+                <ToggleButton
+                    android:id="@+id/personal_center_set_frg_jpush_button2"
+                    android:layout_width="60dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/toggle_off"
+                    android:gravity="center"
+                    android:textOff=""
+                    android:textOn="" />
+            </RelativeLayout>
+
+
+            <View
+                style="@style/line_horStyle"
+                android:layout_marginLeft="@dimen/layout_margin_ml" />
+
+            <TextView
+                android:id="@+id/tv_telephone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:drawableRight="@drawable/icon_arrow_right"
+                android:gravity="center_vertical"
+                android:hint="联系方式"
+                android:padding="@dimen/layout_padding_l"
+                android:visibility="gone" />
+
+            <View style="@style/line_horStyle" />
+        </LinearLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="金额：" />
+
+            <TextView
+                android:id="@+id/tv_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/comm_red"
+                android:textSize="20dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:padding="5dp"
+            android:text="提交"
+            android:textColor="@color/comm_blue" />
+    </RelativeLayout>
+</RelativeLayout>
