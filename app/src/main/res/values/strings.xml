@@ -46,7 +46,7 @@
     <string name="login_register_age_small">年龄格式不正确，请重新选择</string>
 
     <!--预约学车-->
-    <string name="title_learn">预约学车</string>
+    <string name="title_study_history">预约学车</string>
     <string name="title_apply_history">报名订单</string>
 
     <!--预约考试-->

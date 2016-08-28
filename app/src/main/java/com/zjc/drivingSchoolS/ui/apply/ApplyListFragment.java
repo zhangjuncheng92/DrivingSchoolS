@@ -12,6 +12,7 @@ import com.mobo.mobolibrary.ui.base.ZBaseFragment;
 import com.mobo.mobolibrary.ui.base.ZBaseToolBarFragment;
 import com.mobo.mobolibrary.ui.base.adapter.ZBaseRecyclerViewAdapter;
 import com.mobo.mobolibrary.ui.divideritem.HorizontalDividerItemDecoration;
+import com.mobo.mobolibrary.ui.widget.empty.EmptyLayout;
 import com.zjc.drivingSchoolS.R;
 import com.zjc.drivingSchoolS.api.ApiHttpClient;
 import com.zjc.drivingSchoolS.api.ResultResponseHandler;
@@ -122,6 +123,11 @@ public class ApplyListFragment extends ZBaseToolBarFragment implements SwipeRefr
      * 加载完成
      */
     public boolean isLoadFinish(int size) {
+        if (size == 0) {
+            getEmptyLayout().setErrorType(EmptyLayout.NODATA_ENABLE_CLICK);
+            return true;
+        }
+
         if (size < ConstantsParams.PAGE_SIZE) {
             mAdapter.stopMore();
             mAdapter.setNoMore(R.layout.view_nomore);
