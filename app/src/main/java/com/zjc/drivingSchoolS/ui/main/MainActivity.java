@@ -23,7 +23,6 @@ import com.zjc.drivingSchoolS.jpush.JPushUtil;
 import com.zjc.drivingSchoolS.ui.account.AccountManagerActivity;
 import com.zjc.drivingSchoolS.ui.apply.ApplyActivity;
 import com.zjc.drivingSchoolS.ui.collect.CollectManagerActivity;
-import com.zjc.drivingSchoolS.ui.learn.LearnActivity;
 import com.zjc.drivingSchoolS.ui.login.LoginActivity;
 import com.zjc.drivingSchoolS.ui.notification.NotificationActivity;
 import com.zjc.drivingSchoolS.ui.order.OrderManagerActivity;
@@ -42,7 +41,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
 
         initToolBar();
-        initNavigation();
         initView();
         initOrder();
     }
@@ -52,23 +50,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
         //设置标题
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-    }
-
-    private void initNavigation() {
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        View headerView = navigationView.getHeaderView(0);
-
-        navigationView.setNavigationItemSelectedListener(this);
-
-        /**个人信息的设置*/
-        if (SharePreferencesUtil.getInstance().isLogin()) {
-            UserInfo userInfo = SharePreferencesUtil.getInstance().readUser();
-            SimpleDraweeView sdIcon = (SimpleDraweeView) headerView.findViewById(R.id.personal_main_frg_sd_icon);
-            TextView tvName = (TextView) headerView.findViewById(R.id.personal_main_frg_tv_name);
-            ImageLoader.getInstance().displayImage(sdIcon, Constants.BASE_IP + userInfo.getLogo());
-            tvName.setText(userInfo.getSchoolname() + "");
-        }
     }
 
     private void initView() {
@@ -98,10 +79,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      * 验证是否登录
      */
     private void verifyIsLogin() {
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
         if (SharePreferencesUtil.getInstance().isLogin()) {
+            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+            View headerView = navigationView.getHeaderView(0);
+
+            navigationView.setNavigationItemSelectedListener(this);
+            headerView.setOnClickListener(new HeaderViewOnClick());
             ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
             drawer.setDrawerListener(toggle);
             toggle.syncState();
+
+            UserInfo userInfo = SharePreferencesUtil.getInstance().readUser();
+            SimpleDraweeView sdIcon = (SimpleDraweeView) headerView.findViewById(R.id.personal_main_frg_sd_icon);
+            TextView tvName = (TextView) headerView.findViewById(R.id.personal_main_frg_tv_name);
+            ImageLoader.getInstance().displayImage(sdIcon, Constants.BASE_IP + userInfo.getLogo());
+            tvName.setText(userInfo.getSchoolname() + "");
         } else {
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
@@ -133,6 +127,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.main_action_account) {
             Intent intent = new Intent(MainActivity.this, AccountManagerActivity.class);
             startActivity(intent);
+        } else if (id == R.id.main_action_apply_history) {
+            Intent intent = new Intent(MainActivity.this, ApplyActivity.class);
+            startActivity(intent);
         } else if (id == R.id.main_action_collect) {
             Intent intent = new Intent(MainActivity.this, CollectManagerActivity.class);
             startActivity(intent);
@@ -143,25 +140,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Intent intent = new Intent(MainActivity.this, NotificationActivity.class);
             startActivity(intent);
         } else if (id == R.id.main_action_more) {
+        } else if (id == R.id.main_action_logout) {
             logout();
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
+    class HeaderViewOnClick implements View.OnClickListener {
+
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+        }
+    }
+
     @Override
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.main_one) {
-            //报名学车
-            Intent intent = new Intent(MainActivity.this, LearnActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.main_two) {
-            //预约学车
-            Intent intent = new Intent(MainActivity.this, ApplyActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.main_three) {
-            //预约考试
 
         }
     }

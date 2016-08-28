@@ -288,7 +288,6 @@ public class ApiHttpClient {
         HttpUtilsAsync.post(Constants.BASE_URL + "student/order/detail", postRequest, asyncHttpResponseHandler);
     }
 
-
     /**
      * ###########驾校主页############
      * 6.2接口：detail
@@ -349,11 +348,51 @@ public class ApiHttpClient {
      * 参数：orid  uid tid
      * 调用示例：teacher/list
      */
-    public void getTeacherList(String userId,AsyncHttpResponseHandler asyncHttpResponseHandler) {
+    public void getTeacherList(String userId, AsyncHttpResponseHandler asyncHttpResponseHandler) {
         JsonObject postRequest = new JsonObject();
         postRequest.addProperty("uid", userId);
         postRequest.addProperty("offset", ConstantsParams.PAGE_START);
         postRequest.addProperty("pagesize", 999);
         HttpUtilsAsync.post(Constants.BASE_URL + "teacher/list", postRequest, asyncHttpResponseHandler);
+    }
+
+
+    /** ###########  报名  ############  */
+    /**
+     * 1.1.21 学员报名订单列表
+     * 参数：pagesize  uid offset   state  orderid creatdate
+     * 调用示例：/app/student/order/list
+     */
+    public void startOrders(String userId, int start, String status, AsyncHttpResponseHandler asyncHttpResponseHandler) {
+        JsonObject postRequest = new JsonObject();
+        postRequest.addProperty("uid", userId);
+        postRequest.addProperty("offset", start);
+        postRequest.addProperty("pagesize", ConstantsParams.PAGE_SIZE);
+        HttpUtilsAsync.post(Constants.BASE_URL + "signuporder/take/list", postRequest, asyncHttpResponseHandler);
+    }
+
+    /**
+     * 1.1.21 学员报名订单列表
+     * 参数：pagesize  uid offset   state  orderid creatdate
+     * 调用示例：/app/student/order/list
+     */
+    public void startOrders(String userId, int start, AsyncHttpResponseHandler asyncHttpResponseHandler) {
+        JsonObject postRequest = new JsonObject();
+        postRequest.addProperty("uid", userId);
+        postRequest.addProperty("offset", start);
+        postRequest.addProperty("pagesize", ConstantsParams.PAGE_SIZE);
+        HttpUtilsAsync.post(Constants.BASE_URL + "signuporder/take/list", postRequest, asyncHttpResponseHandler);
+    }
+
+    /**
+     * 1.1.26 报名订单-接单
+     * 参数：orid  uid
+     * 调用示例：signuporder/take/sub
+     */
+    public void receiveApplyOrder(String userId, String orid, AsyncHttpResponseHandler asyncHttpResponseHandler) {
+        JsonObject postRequest = new JsonObject();
+        postRequest.addProperty("uid", userId);
+        postRequest.addProperty("orid", orid);
+        HttpUtilsAsync.post(Constants.BASE_URL + "signuporder/take/sub", postRequest, asyncHttpResponseHandler);
     }
 }

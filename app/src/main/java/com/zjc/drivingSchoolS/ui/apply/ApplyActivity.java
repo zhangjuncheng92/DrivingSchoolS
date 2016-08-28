@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.mobo.mobolibrary.ui.base.ZBaseActivity;
 import com.zjc.drivingSchoolS.R;
-import com.zjc.drivingSchoolS.ui.learn.LearnApplyFragment;
+import com.zjc.drivingSchoolS.utils.Constants;
 
 
 /**
@@ -24,9 +24,17 @@ public class ApplyActivity extends ZBaseActivity {
 
     @Override
     protected void initBaseView() {
-        FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
-        LearnApplyFragment fragment = new LearnApplyFragment();
-        trans.addToBackStack(null);
-        trans.add(R.id.root, fragment).commit();
+        if (getIntent().getExtras() == null) {
+            FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
+            ApplyListFragment fragment = new ApplyListFragment();
+            trans.addToBackStack(null);
+            trans.add(R.id.root, fragment).commit();
+        } else if (getIntent().getExtras() != null && getIntent().getExtras().containsKey(Constants.ARGUMENT)) {
+//            String orId = (String) getIntent().getExtras().getSerializable(Constants.ARGUMENT);
+//            FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
+//            ApplyDetailFragment fragment = ApplyDetailFragment.newInstance((orId));
+//            trans.addToBackStack(null);
+//            trans.add(R.id.root, fragment).commit();
+        }
     }
 }

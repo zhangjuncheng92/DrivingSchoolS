@@ -79,11 +79,7 @@
             android:name="com.zjc.drivingSchoolS.ui.apply.ApplyActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:windowSoftInputMode="adjustPan" />
-        <!--预约学车-->
-        <activity
-            android:name="com.zjc.drivingSchoolS.ui.learn.LearnActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="adjustPan" />
+
 
         <!--驾校主页-->
         <activity
