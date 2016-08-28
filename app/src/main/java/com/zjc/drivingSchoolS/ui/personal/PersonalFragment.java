@@ -42,12 +42,12 @@ import de.greenrobot.event.EventBus;
  * @description 个人中心详情界面
  */
 public class PersonalFragment extends ZBaseToolBarFragment implements View.OnClickListener {
-    private EditText tvName;
+    private EditText tvSchoolName;
     private TextView tvLat;
-    private TextView tvSex;
+    private EditText tvName;
     private EditText tvAddress;
     private EditText tvPhone;
-    private EditText tvIdCard;
+    private EditText tvDesc;
     private SimpleDraweeView sdIcon;
 
     //定位相关
@@ -78,37 +78,29 @@ public class PersonalFragment extends ZBaseToolBarFragment implements View.OnCli
         public boolean onMenuItemClick(MenuItem item) {
             int i = item.getItemId();
             if (i == R.id.action_explain) {
-                String sex = tvSex.getText().toString().trim();
-                String name = tvName.getText().toString().trim();
-                String email = tvLat.getText().toString().trim();
-                String address = tvAddress.getText().toString().trim();
-                String phone = tvPhone.getText().toString().trim();
-                String idCard = tvIdCard.getText().toString().trim();
+                String name = tvName.getEditableText().toString().trim();
+                String schoolName = tvSchoolName.getEditableText().toString().trim();
+                String address = tvAddress.getEditableText().toString().trim();
+                String phone = tvPhone.getEditableText().toString().trim();
+                String desc = tvDesc.getEditableText().toString().trim();
 
-                if (TextUtils.isEmpty(sex) || TextUtils.isEmpty(name) || TextUtils.isEmpty(email)
-                        || TextUtils.isEmpty(address) || TextUtils.isEmpty(phone) || TextUtils.isEmpty(idCard)) {
+                if (TextUtils.isEmpty(schoolName) || TextUtils.isEmpty(name) || TextUtils.isEmpty(address) || TextUtils.isEmpty(phone) || TextUtils.isEmpty(desc)) {
                     Util.showCustomMsg("请输入完整信息");
                     return true;
                 }
 
                 final UserInfo userInfo = SharePreferencesUtil.getInstance().readUser();
-                userInfo.setUid(SharePreferencesUtil.getInstance().readUser().getUid());
-//                userInfo.setNickname(name);
-//                userInfo.setGender((Boolean) tvSex.getTag());
-//                userInfo.setBirthday(birth);
-//                userInfo.setPhone(phone);
-//                userInfo.setEmail(email);
-//                userInfo.setQq(qq);
-//                userInfo.setAddress(address);
-//                userInfo.setIdentityno(idCard);
-
-//                ApiHttpClient.getInstance().updateUserBaseInfo(userInfo, new ResultResponseHandler(getActivity(), "正在保存") {
-//                    @Override
-//                    public void onResultSuccess(String result) {
-//                        SharePreferencesUtil.getInstance().saveUser(userInfo);
-//                        getFragmentManager().popBackStack();
-//                    }
-//                });
+                userInfo.setAddress(address);
+                userInfo.setContacts(name);
+                userInfo.setContactsphone(phone);
+                userInfo.setSchoolname(schoolName);
+                userInfo.setSynopsis(desc);
+                ApiHttpClient.getInstance().updateUserinfo(userInfo, new ResultResponseHandler(getActivity(), "正在保存") {
+                    @Override
+                    public void onResultSuccess(String result) {
+                        SharePreferencesUtil.getInstance().saveUser(userInfo);
+                    }
+                });
             }
             return true;
         }
@@ -127,15 +119,14 @@ public class PersonalFragment extends ZBaseToolBarFragment implements View.OnCli
     }
 
     private void initView() {
+        tvSchoolName = (EditText) rootView.findViewById(R.id.personal_frg_tv_school_name);
         tvName = (EditText) rootView.findViewById(R.id.personal_frg_tv_name);
-        tvLat = (TextView) rootView.findViewById(R.id.personal_frg_tv_lat);
-        tvSex = (TextView) rootView.findViewById(R.id.personal_frg_tv_sex);
         tvAddress = (EditText) rootView.findViewById(R.id.personal_frg_tv_address);
         tvPhone = (EditText) rootView.findViewById(R.id.personal_frg_tv_phone);
-        tvIdCard = (EditText) rootView.findViewById(R.id.personal_frg_tv_id_card);
+        tvDesc = (EditText) rootView.findViewById(R.id.personal_frg_tv_desc);
+        tvLat = (TextView) rootView.findViewById(R.id.personal_frg_tv_lat);
         sdIcon = (SimpleDraweeView) rootView.findViewById(R.id.personal_main_frg_sd_icon);
 
-        tvSex.setOnClickListener(this);
         tvLat.setOnClickListener(this);
     }
 
@@ -160,10 +151,11 @@ public class PersonalFragment extends ZBaseToolBarFragment implements View.OnCli
     }
 
     private void setPersonInfo(UserInfo userInfo) {
-        tvName.setText(userInfo.getSchoolname());
+        tvSchoolName.setText(userInfo.getSchoolname());
+        tvName.setText(userInfo.getContacts());
         tvAddress.setText(userInfo.getAddress());
-        tvPhone.setText(userInfo.getSchoolname());
-        tvIdCard.setText(userInfo.getSchoolname());
+        tvPhone.setText(userInfo.getContactsphone());
+        tvDesc.setText(userInfo.getSynopsis());
         ImageLoader.getInstance().displayImage(sdIcon, Constants.BASE_IP + userInfo.getLogo());
 
         sdIcon.setOnClickListener(this);
@@ -232,11 +224,13 @@ public class PersonalFragment extends ZBaseToolBarFragment implements View.OnCli
     }
 
     private void updateLatLng(double lat, double lng) {
-        String id = SharePreferencesUtil.getInstance().readUser().getUid();
-        ApiHttpClient.getInstance().updateLatLng(id, lat, lng, new ResultResponseHandler(getActivity(), "更新坐标，请稍等") {
+        final UserInfo userInfo = SharePreferencesUtil.getInstance().readUser();
+        userInfo.setLatitude(lat);
+        userInfo.setLongitude(lng);
+        ApiHttpClient.getInstance().updateUserinfo(userInfo, new ResultResponseHandler(getActivity(), "更新坐标，请稍等") {
             @Override
             public void onResultSuccess(String result) {
-
+                SharePreferencesUtil.getInstance().saveUser(userInfo);
             }
         });
     }

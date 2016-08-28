@@ -126,14 +126,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         if (id == R.id.main_action_account) {
-            Intent intent = new Intent(MainActivity.this, AccountManagerActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent(MainActivity.this, AccountManagerActivity.class);
+//            startActivity(intent);
         } else if (id == R.id.main_action_apply_history) {
             Intent intent = new Intent(MainActivity.this, ApplyActivity.class);
             startActivity(intent);
         } else if (id == R.id.main_action_collect) {
-            Intent intent = new Intent(MainActivity.this, CollectManagerActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent(MainActivity.this, CollectManagerActivity.class);
+//            startActivity(intent);
         } else if (id == R.id.main_action_history) {
             Intent intent = new Intent(MainActivity.this, OrderManagerActivity.class);
             startActivity(intent);

@@ -5,6 +5,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.mobo.mobolibrary.util.Util;
 import com.mobo.mobolibrary.util.UtilPhoto;
+import com.zjc.drivingSchoolS.db.models.UserInfo;
 import com.zjc.drivingSchoolS.db.request.OrderCreateRequest;
 import com.zjc.drivingSchoolS.utils.Constants;
 import com.zjc.drivingSchoolS.utils.ConstantsParams;
@@ -118,11 +119,16 @@ public class ApiHttpClient {
      * 参数：id(用户主键)
      * 调用示例：/school/subinfo
      */
-    public void updateLatLng(String uid, double latitude, double longitude, AsyncHttpResponseHandler asyncHttpResponseHandler) {
+    public void updateUserinfo(UserInfo userInfo, AsyncHttpResponseHandler asyncHttpResponseHandler) {
         JsonObject postRequest = new JsonObject();
-        postRequest.addProperty("uid", uid);
-        postRequest.addProperty("latitude", latitude);
-        postRequest.addProperty("longitude", longitude);
+        postRequest.addProperty("uid", userInfo.getUid());
+        postRequest.addProperty("latitude", userInfo.getLatitude());
+        postRequest.addProperty("longitude", userInfo.getLongitude());
+        postRequest.addProperty("address", userInfo.getAddress());
+        postRequest.addProperty("contacts", userInfo.getContacts());
+        postRequest.addProperty("contactsphone", userInfo.getContactsphone());
+        postRequest.addProperty("schoolname", userInfo.getSchoolname());
+        postRequest.addProperty("synopsis", userInfo.getSynopsis());
         HttpUtilsAsync.post(Constants.BASE_URL + "subinfo", postRequest, asyncHttpResponseHandler);
     }
 
@@ -148,35 +154,6 @@ public class ApiHttpClient {
         HttpUtilsAsync.postInfinite(Constants.BASE_URL + "subphoto", params, asyncHttpResponseHandler);
     }
 
-    /**
-     * 1.9接口：updateUserBaseInfo
-     * 用途：修改用户基本资料
-     * 参数：id(用户主键)email()age()gender(1.男 2.女)logoFile(头像文件)
-     * 调用示例：http://localhost:8080/medical/services/userinfo/updateUserBaseInfo?id=1&email=&age=&gender=&logoFile=
-     */
-    public void updateUserBaseInfo(int id, String logoFile, AsyncHttpResponseHandler asyncHttpResponseHandler) {
-        RequestParams params = new RequestParams();
-        params.setForceMultipartEntityContentType(true);
-        params.setHttpEntityIsRepeatable(true);
-        params.put("id", id);
-//        params.put("email", email);
-//        params.put("age", age);
-//        params.put("gender", gender);
-//        params.put("logoFile", logoFile);
-
-        try {
-            File file;
-            //生成输入文件路径，进行压缩
-            String filename = Constants.DIR_CACHE + Util.getPhotoFileName();
-            UtilPhoto.getSmallFileByFile(logoFile, filename);
-            file = new File(filename);
-
-            params.put("logoFile", file);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        HttpUtilsAsync.post(Constants.BASE_URL + "userinfo/updateUserBaseInfo", params, asyncHttpResponseHandler);
-    }
 
     /**
      * 1.10接口：findPatientByUserId
@@ -337,7 +314,7 @@ public class ApiHttpClient {
         postRequest.addProperty("uid", userId);
         postRequest.addProperty("offset", start);
         postRequest.addProperty("pagesize", ConstantsParams.PAGE_SIZE);
-        HttpUtilsAsync.post(Constants.BASE_URL + "student/message/list", postRequest, asyncHttpResponseHandler);
+        HttpUtilsAsync.post(Constants.BASE_URL + "message/list", postRequest, asyncHttpResponseHandler);
     }
 
 

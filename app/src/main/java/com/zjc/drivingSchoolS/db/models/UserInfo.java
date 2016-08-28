@@ -5,6 +5,14 @@ import java.io.Serializable;
 
 public class UserInfo implements Serializable {
 
+    /**
+     * code : 200
+     * latitude : 30.503949
+     * longitude : 114.439444
+     * message : 登陆成功
+     * synopsis :
+     */
+
     private String uid;// 用户ID
 
     private String loginname;// 用户名
@@ -20,6 +28,10 @@ public class UserInfo implements Serializable {
     private String contacts;// 驾校联系人
 
     private String contactsphone;// 联系人电话
+
+    private double latitude;
+    private double longitude;
+    private String synopsis;
 
     public String getUid() {
         return uid;
@@ -83,5 +95,29 @@ public class UserInfo implements Serializable {
 
     public void setContactsphone(String contactsphone) {
         this.contactsphone = contactsphone;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getSynopsis() {
+        return synopsis;
+    }
+
+    public void setSynopsis(String synopsis) {
+        this.synopsis = synopsis;
     }
 }

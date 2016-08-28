@@ -51,7 +51,7 @@
                 android:text="@string/personal_detail_name" />
 
             <EditText
-                android:id="@+id/personal_frg_tv_name"
+                android:id="@+id/personal_frg_tv_school_name"
                 style="@style/personal_info_text"
                 android:maxLength="10" />
 
@@ -72,8 +72,8 @@
                 android:drawableLeft="@drawable/icon_name"
                 android:text="@string/personal_detail_sex" />
 
-            <TextView
-                android:id="@+id/personal_frg_tv_sex"
+            <EditText
+                android:id="@+id/personal_frg_tv_name"
                 style="@style/personal_info_text" />
 
         </LinearLayout>
@@ -95,7 +95,7 @@
             <EditText
                 android:id="@+id/personal_frg_tv_phone"
                 style="@style/personal_info_text"
-                android:inputType="number"
+                android:inputType="phone"
                 android:maxLength="11" />
 
         </LinearLayout>
@@ -162,7 +162,7 @@
                 android:text="@string/personal_detail_desc" />
 
             <EditText
-                android:id="@+id/personal_frg_tv_id_card"
+                android:id="@+id/personal_frg_tv_desc"
                 style="@style/personal_info_text"
                 android:digits="0123456789xyzXYZ"
                 android:inputType="number"
