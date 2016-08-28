@@ -136,11 +136,14 @@
                 android:drawableLeft="@drawable/icon_name"
                 android:text="@string/personal_detail_lat" />
 
-            <EditText
+            <TextView
                 android:id="@+id/personal_frg_tv_lat"
-                style="@style/personal_info_text"
-                android:inputType="number"
-                android:maxLength="13" />
+                style="@style/comm_subtitle_blue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:padding="@dimen/layout_padding_l"
+                android:text="更新" />
 
         </LinearLayout>
 

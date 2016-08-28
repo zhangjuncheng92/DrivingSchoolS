@@ -1,22 +1,21 @@
 package com.zjc.drivingSchoolS.ui.personal;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.bigkoo.pickerview.OptionsPopupWindow;
-import com.bigkoo.pickerview.TimePopupWindow;
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.mobo.mobolibrary.ui.base.ZBaseToolBarFragment;
 import com.mobo.mobolibrary.util.Util;
@@ -27,17 +26,12 @@ import com.zjc.drivingSchoolS.api.ResultResponseHandler;
 import com.zjc.drivingSchoolS.db.SharePreferences.SharePreferencesUtil;
 import com.zjc.drivingSchoolS.db.models.UserInfo;
 import com.zjc.drivingSchoolS.db.parsers.SchoolLogoResponseParser;
-import com.zjc.drivingSchoolS.db.parsers.UserInfoParser;
 import com.zjc.drivingSchoolS.db.response.SchoolLogoResponse;
 import com.zjc.drivingSchoolS.eventbus.ActionCameraEvent;
 import com.zjc.drivingSchoolS.eventbus.ActionMultiPhotoEvent;
 import com.zjc.drivingSchoolS.utils.Constants;
 import com.zjc.drivingSchoolS.utils.ConstantsParams;
 import com.zjc.drivingSchoolS.widget.MultiPhotoDialogFragment;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 
 import de.greenrobot.event.EventBus;
 
@@ -49,12 +43,16 @@ import de.greenrobot.event.EventBus;
  */
 public class PersonalFragment extends ZBaseToolBarFragment implements View.OnClickListener {
     private EditText tvName;
-    private EditText tvEmail;
+    private TextView tvLat;
     private TextView tvSex;
     private EditText tvAddress;
     private EditText tvPhone;
     private EditText tvIdCard;
     private SimpleDraweeView sdIcon;
+
+    //定位相关
+    LocationClient mLocClient;
+    public MyLocationListener myListener = new MyLocationListener();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -82,7 +80,7 @@ public class PersonalFragment extends ZBaseToolBarFragment implements View.OnCli
             if (i == R.id.action_explain) {
                 String sex = tvSex.getText().toString().trim();
                 String name = tvName.getText().toString().trim();
-                String email = tvEmail.getText().toString().trim();
+                String email = tvLat.getText().toString().trim();
                 String address = tvAddress.getText().toString().trim();
                 String phone = tvPhone.getText().toString().trim();
                 String idCard = tvIdCard.getText().toString().trim();
@@ -124,12 +122,13 @@ public class PersonalFragment extends ZBaseToolBarFragment implements View.OnCli
     @Override
     protected void layoutInit(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         initView();
+        initLocation();
         setPersonInfo(SharePreferencesUtil.getInstance().readUser());
     }
 
     private void initView() {
         tvName = (EditText) rootView.findViewById(R.id.personal_frg_tv_name);
-        tvEmail = (EditText) rootView.findViewById(R.id.personal_frg_tv_lat);
+        tvLat = (TextView) rootView.findViewById(R.id.personal_frg_tv_lat);
         tvSex = (TextView) rootView.findViewById(R.id.personal_frg_tv_sex);
         tvAddress = (EditText) rootView.findViewById(R.id.personal_frg_tv_address);
         tvPhone = (EditText) rootView.findViewById(R.id.personal_frg_tv_phone);
@@ -137,12 +136,32 @@ public class PersonalFragment extends ZBaseToolBarFragment implements View.OnCli
         sdIcon = (SimpleDraweeView) rootView.findViewById(R.id.personal_main_frg_sd_icon);
 
         tvSex.setOnClickListener(this);
+        tvLat.setOnClickListener(this);
+    }
+
+
+    /**
+     * 初始化定位功能
+     */
+    private void initLocation() {
+        // 定位初始化
+        mLocClient = new LocationClient(getActivity());
+        mLocClient.registerLocationListener(myListener);
+
+        LocationClientOption option = new LocationClientOption();
+
+        option.setOpenGps(true);// 打开gps
+
+        option.setAddrType("all");
+        option.setPriority(LocationClientOption.NetWorkFirst);
+        option.setPriority(LocationClientOption.GpsFirst);       //gps
+        option.disableCache(true);
+        mLocClient.setLocOption(option);
     }
 
     private void setPersonInfo(UserInfo userInfo) {
         tvName.setText(userInfo.getSchoolname());
         tvAddress.setText(userInfo.getAddress());
-        tvEmail.setText(userInfo.getSchoolname());
         tvPhone.setText(userInfo.getSchoolname());
         tvIdCard.setText(userInfo.getSchoolname());
         ImageLoader.getInstance().displayImage(sdIcon, Constants.BASE_IP + userInfo.getLogo());
@@ -153,13 +172,14 @@ public class PersonalFragment extends ZBaseToolBarFragment implements View.OnCli
 
     @Override
     public void onClick(View v) {
-        InputMethodManager inputmanger = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         int i = v.getId();
         if (i == R.id.personal_main_frg_sd_icon) {
             MultiPhotoDialogFragment dialogFragment1 = new MultiPhotoDialogFragment();
             dialogFragment1.setMax(1);
             dialogFragment1.setAction(ConstantsParams.PHOTO_TYPE_USER);
             dialogFragment1.show(getFragmentManager(), null);
+        } else if (i == R.id.personal_frg_tv_lat) {
+            mLocClient.start();
         }
     }
 
@@ -192,9 +212,39 @@ public class PersonalFragment extends ZBaseToolBarFragment implements View.OnCli
         });
     }
 
+    /**
+     * 定位SDK监听函数
+     */
+    public class MyLocationListener implements BDLocationListener {
+
+        @Override
+        public void onReceiveLocation(BDLocation location) {
+            // map view 销毁后不在处理新接收的位置
+            if (location == null) {
+                return;
+            }
+            mLocClient.stop();
+            updateLatLng(location.getLatitude(), location.getLongitude());
+        }
+
+        public void onReceivePoi(BDLocation poiLocation) {
+        }
+    }
+
+    private void updateLatLng(double lat, double lng) {
+        String id = SharePreferencesUtil.getInstance().readUser().getUid();
+        ApiHttpClient.getInstance().updateLatLng(id, lat, lng, new ResultResponseHandler(getActivity(), "更新坐标，请稍等") {
+            @Override
+            public void onResultSuccess(String result) {
+
+            }
+        });
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+        mLocClient.stop();
     }
 }

@@ -114,15 +114,16 @@ public class ApiHttpClient {
     }
 
     /**
-     * 1.8接口：getUserById
-     * 用途：根据登陆用户Id获取基本资料
+     * 用途：更新用户坐标
      * 参数：id(用户主键)
-     * 调用示例：http://localhost:8080/medical/services/userinfo/getUserById?id=1
+     * 调用示例：/school/subinfo
      */
-    public void getUserById(int id, AsyncHttpResponseHandler asyncHttpResponseHandler) {
-        RequestParams params = new RequestParams();
-        params.put("id", id);
-        HttpUtilsAsync.post(Constants.BASE_URL + "userinfo/getUserById", params, asyncHttpResponseHandler);
+    public void updateLatLng(String uid, double latitude, double longitude, AsyncHttpResponseHandler asyncHttpResponseHandler) {
+        JsonObject postRequest = new JsonObject();
+        postRequest.addProperty("uid", uid);
+        postRequest.addProperty("latitude", latitude);
+        postRequest.addProperty("longitude", longitude);
+        HttpUtilsAsync.post(Constants.BASE_URL + "subinfo", postRequest, asyncHttpResponseHandler);
     }
 
     /**
