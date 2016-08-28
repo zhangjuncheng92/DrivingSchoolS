@@ -2,106 +2,104 @@ package com.zjc.drivingSchoolS.db.model;
 
 /**
  * 订单列表Item
- * 
+ *
  * @author LJ
  * @date 2016年7月21日
  */
-public class OrderItem
-{	
-	private String orid;// 订单id
+public class OrderItem extends AppResponse {
 
-	private String orderid;// 订单编号
-	
-	private String title;// 订单标题
-	
-	private String uid;// 预约人ID
-	
-	private String uname;// 预约人
-	
-	private String state;// 订单状态 1.预订成功 2.已支付 3.申请退订 4.已退订 5.消费中 6.已消费 7.待评价 8.已完成 9.已取消
-	
-	private double total;// 总价
-	
-	private String ordertime;// 下单时间
 
-	public String getOrid()
-	{
-		return orid;
-	}
+    /**
+     * contactsname : 张俊陈
+     * contactsphone : 13797039695
+     * orderid : SJ160827592280000005
+     * orid : 678de123f41046028591cb6e36508104
+     * starttime : 2016-08-29 20:35:00
+     * state : 1
+     * title : 科目三培训学车订单
+     * total : 200.0
+     * uid : 42164b4381024eb1b6d6b9c0836aaa59
+     */
 
-	public void setOrid(String orid)
-	{
-		this.orid = orid;
-	}
+    private String contactsname;
+    private String contactsphone;
+    private String orderid;
+    private String orid;
+    private String starttime;
+    private String state;
+    private String title;
+    private double total;
+    private String uid;
 
-	public String getOrderid()
-	{
-		return orderid;
-	}
+    public String getContactsname() {
+        return contactsname;
+    }
 
-	public void setOrderid(String orderid)
-	{
-		this.orderid = orderid;
-	}
+    public void setContactsname(String contactsname) {
+        this.contactsname = contactsname;
+    }
 
-	public String getTitle()
-	{
-		return title;
-	}
+    public String getContactsphone() {
+        return contactsphone;
+    }
 
-	public void setTitle(String title)
-	{
-		this.title = title;
-	}
+    public void setContactsphone(String contactsphone) {
+        this.contactsphone = contactsphone;
+    }
 
-	public String getState()
-	{
-		return state;
-	}
+    public String getOrderid() {
+        return orderid;
+    }
 
-	public void setState(String state)
-	{
-		this.state = state;
-	}
+    public void setOrderid(String orderid) {
+        this.orderid = orderid;
+    }
 
-	public double getTotal()
-	{
-		return total;
-	}
+    public String getOrid() {
+        return orid;
+    }
 
-	public void setTotal(double total)
-	{
-		this.total = total;
-	}
+    public void setOrid(String orid) {
+        this.orid = orid;
+    }
 
-	public String getOrdertime()
-	{
-		return ordertime;
-	}
+    public String getStarttime() {
+        return starttime;
+    }
 
-	public void setOrdertime(String ordertime)
-	{
-		this.ordertime = ordertime;
-	}
+    public void setStarttime(String starttime) {
+        this.starttime = starttime;
+    }
 
-	public String getUname()
-	{
-		return uname;
-	}
+    public String getState() {
+        return state;
+    }
 
-	public void setUname(String uname)
-	{
-		this.uname = uname;
-	}
+    public void setState(String state) {
+        this.state = state;
+    }
 
-	public String getUid()
-	{
-		return uid;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	public void setUid(String uid)
-	{
-		this.uid = uid;
-	}
-	
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
 }

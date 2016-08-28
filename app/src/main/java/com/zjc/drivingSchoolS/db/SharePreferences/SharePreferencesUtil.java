@@ -9,7 +9,7 @@ import com.mobo.mobolibrary.util.Util;
 import com.zjc.drivingSchoolS.app.MApp;
 import com.zjc.drivingSchoolS.db.model.City;
 import com.zjc.drivingSchoolS.db.model.NotificationTypeModel;
-import com.zjc.drivingSchoolS.db.model.UserInfo;
+import com.zjc.drivingSchoolS.db.models.UserInfo;
 
 import java.io.IOException;
 import java.util.ArrayList;

@@ -17,9 +17,10 @@ import com.zjc.drivingSchoolS.R;
 import com.zjc.drivingSchoolS.api.ApiHttpClient;
 import com.zjc.drivingSchoolS.api.ResultResponseHandler;
 import com.zjc.drivingSchoolS.db.SharePreferences.SharePreferencesUtil;
-import com.zjc.drivingSchoolS.db.model.UserInfo;
-import com.zjc.drivingSchoolS.db.parser.UserInfoParser;
+import com.zjc.drivingSchoolS.db.models.UserInfo;
+import com.zjc.drivingSchoolS.db.parsers.UserInfoParser;
 import com.zjc.drivingSchoolS.jpush.JPushUtil;
+import com.zjc.drivingSchoolS.ui.main.MainActivity;
 
 
 /**
@@ -113,12 +114,12 @@ public class LoginMainFragment extends ZBaseToolBarFragment implements View.OnCl
             @Override
             public void onResultSuccess(String result) {
                 UserInfo userInfo = new UserInfoParser().parseResultMessage(result);
-                SharePreferencesUtil.getInstance().savePhone(userInfo.getPhone());
+                SharePreferencesUtil.getInstance().savePhone(userInfo.getLoginname());
                 SharePreferencesUtil.getInstance().savePwd(edtPawd.getEditableText().toString());
                 SharePreferencesUtil.getInstance().saveUser(userInfo);
                 SharePreferencesUtil.getInstance().setLogin(true);
                 JPushUtil.setAliasAndTags();
-                getActivity().finish();
+                startActivity(MainActivity.class);
             }
         });
     }
@@ -126,5 +127,6 @@ public class LoginMainFragment extends ZBaseToolBarFragment implements View.OnCl
     @Override
     protected void setTitle() {
         setTitle(mToolbar, R.string.login);
+        mToolbar.setNavigationIcon(null);
     }
 }

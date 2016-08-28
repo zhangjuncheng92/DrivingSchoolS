@@ -3,7 +3,7 @@ package com.zjc.drivingSchoolS.jpush;
 import com.mobo.mobolibrary.logs.Logs;
 import com.zjc.drivingSchoolS.app.MApp;
 import com.zjc.drivingSchoolS.db.SharePreferences.SharePreferencesUtil;
-import com.zjc.drivingSchoolS.db.model.UserInfo;
+import com.zjc.drivingSchoolS.db.models.UserInfo;
 
 import java.util.HashSet;
 

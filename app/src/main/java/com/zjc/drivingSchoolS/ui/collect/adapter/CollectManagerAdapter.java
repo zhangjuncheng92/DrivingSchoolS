@@ -9,7 +9,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.mobo.mobolibrary.ui.base.adapter.ZBaseRecyclerViewAdapter;
 import com.zjc.drivingSchoolS.R;
-import com.zjc.drivingSchoolS.db.model.UserInfo;
+import com.zjc.drivingSchoolS.db.models.UserInfo;
 
 /**
  * Created by Administrator on 2016/8/18.

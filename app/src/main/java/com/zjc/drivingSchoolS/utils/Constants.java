@@ -13,7 +13,7 @@ public class Constants {
     public static final String BASE_IP = "http://59.172.153.170:20002";//云服务器测试
 //      public static final String BASE_IP = "http://192.168.8.84:8080/";//公司内网
 
-    public static final String BASE_URL = BASE_IP + "/app/";//服务接口
+    public static final String BASE_URL = BASE_IP + "/app/school/";//服务接口
 
     /**
      * 路径

@@ -40,8 +40,8 @@ public class OrderManagerAdapter extends ZBaseRecyclerViewAdapter {
             mTvStatus = $(R.id.order_status);
             mTvNumber = $(R.id.order_number);
             mTvTime = $(R.id.order_time);
-            mTvPay = $(R.id.order_pay);
-            mTvCancel = $(R.id.order_cancel);
+            mTvPay = $(R.id.order_receive);
+            mTvCancel = $(R.id.order_distribution);
             mTvDiscuss = $(R.id.order_discuss);
             mTvMoney = $(R.id.order_money);
         }
@@ -53,7 +53,7 @@ public class OrderManagerAdapter extends ZBaseRecyclerViewAdapter {
             }
             mTvName.setText(service.getTitle());
             mTvNumber.setText(service.getOrderid());
-            mTvTime.setText(service.getOrdertime());
+            mTvTime.setText(service.getStarttime());
             mTvMoney.setText(service.getTotal() + "");
             mTvStatus.setText(service.getState());
             //	1.预订成功 2.已支付 3.申请退订 4.已退订 5.消费中 6.已消费 7.待评价 8.已完成 9.已取消

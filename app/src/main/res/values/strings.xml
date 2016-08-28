@@ -50,6 +50,8 @@
     <!--预约考试-->
     <string name="title_examination">预约考试</string>
 
+    <!--分配-->
+    <string name="title_distribution">分配教练</string>
 
     <!--个人中心-->
     <!--我的钱包-->

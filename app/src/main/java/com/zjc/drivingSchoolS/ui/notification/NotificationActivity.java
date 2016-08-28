@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentTransaction;
 import com.mobo.mobolibrary.ui.base.ZBaseActivity;
 import com.zjc.drivingSchoolS.R;
 import com.zjc.drivingSchoolS.db.model.JPushNotification;
-import com.zjc.drivingSchoolS.db.model.UserInfo;
+import com.zjc.drivingSchoolS.db.models.UserInfo;
 import com.zjc.drivingSchoolS.utils.Constants;
 
 /**

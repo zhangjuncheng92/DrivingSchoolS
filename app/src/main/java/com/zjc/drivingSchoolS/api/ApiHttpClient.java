@@ -5,8 +5,6 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.mobo.mobolibrary.util.Util;
 import com.mobo.mobolibrary.util.UtilPhoto;
-import com.zjc.drivingSchoolS.db.SharePreferences.SharePreferencesUtil;
-import com.zjc.drivingSchoolS.db.model.SearchHospitalModel;
 import com.zjc.drivingSchoolS.db.request.OrderCreateRequest;
 import com.zjc.drivingSchoolS.utils.Constants;
 import com.zjc.drivingSchoolS.utils.ConstantsParams;
@@ -45,7 +43,7 @@ public class ApiHttpClient {
         postRequest.addProperty("username", phone);
         postRequest.addProperty("password", password);
 
-        HttpUtilsAsync.post(Constants.BASE_URL + "student/login", postRequest, asyncHttpResponseHandler);
+        HttpUtilsAsync.post(Constants.BASE_URL + "login", postRequest, asyncHttpResponseHandler);
     }
 
     /**
@@ -199,26 +197,6 @@ public class ApiHttpClient {
 
 
     /**
-     * 4.1接口：findHospitalPharmacy
-     * 用途：获取医院列表
-     * lng(经度)，lat(纬度)， departmentName(科室名称), divisionId(区域id)，
-     * parkingStatus(停车位可用状态), bedStatus(床位可用状态),
-     * registrationStatus(挂号可用状态),distance(查询范围),
-     */
-    public void findHospitalPharmacy(SearchHospitalModel searchHospitalModel, AsyncHttpResponseHandler asyncHttpResponseHandler) {
-        RequestParams params = new RequestParams();
-        params.put("zoom", searchHospitalModel.getZoom());
-        if (SharePreferencesUtil.getInstance().isLogin()) {
-            params.put("userId", SharePreferencesUtil.getInstance().readUser().getIdentityno());
-        }
-        //上传经纬度和区域
-        params.put("lng", searchHospitalModel.getLatLngLocal().getLongitude());
-        params.put("lat", searchHospitalModel.getLatLngLocal().getLatitude());
-        HttpUtilsAsync.post(Constants.BASE_URL + "hospitalPharmacy/findHospitalPharmacy", params, asyncHttpResponseHandler);
-    }
-
-
-    /**
      * 6.2接口：getMyAccount
      * 用途：获取我的账户信息
      * 参数：uid(登录用户主键)
@@ -288,14 +266,14 @@ public class ApiHttpClient {
     /**
      * 1.1.14 学员学车订单列表
      * 参数：pagesize  uid offset   state  orderid creatdate
-     * 调用示例：/app/student/order/list
+     * 调用示例：order/take/list
      */
     public void findOrders(String userId, int start, AsyncHttpResponseHandler asyncHttpResponseHandler) {
         JsonObject postRequest = new JsonObject();
         postRequest.addProperty("uid", userId);
         postRequest.addProperty("offset", start);
         postRequest.addProperty("pagesize", ConstantsParams.PAGE_SIZE);
-        HttpUtilsAsync.post(Constants.BASE_URL + "student/order/list", postRequest, asyncHttpResponseHandler);
+        HttpUtilsAsync.post(Constants.BASE_URL + "order/take/list", postRequest, asyncHttpResponseHandler);
     }
 
     /**
@@ -338,5 +316,44 @@ public class ApiHttpClient {
         postRequest.addProperty("offset", start);
         postRequest.addProperty("pagesize", ConstantsParams.PAGE_SIZE);
         HttpUtilsAsync.post(Constants.BASE_URL + "student/message/list", postRequest, asyncHttpResponseHandler);
+    }
+
+
+    /**
+     * 1.1.26 学车订单-接单
+     * 参数：orid  uid
+     * 调用示例：/order/take/sub
+     */
+    public void receiveStudyOrder(String userId, String orid, AsyncHttpResponseHandler asyncHttpResponseHandler) {
+        JsonObject postRequest = new JsonObject();
+        postRequest.addProperty("uid", userId);
+        postRequest.addProperty("orid", orid);
+        HttpUtilsAsync.post(Constants.BASE_URL + "order/take/sub", postRequest, asyncHttpResponseHandler);
+    }
+
+    /**
+     * 1.1.26 学车订单-分配教练
+     * 参数：orid  uid tid
+     * 调用示例：order/teacher/allot
+     */
+    public void distributionStudyOrder(String userId, String orid, String tid, AsyncHttpResponseHandler asyncHttpResponseHandler) {
+        JsonObject postRequest = new JsonObject();
+        postRequest.addProperty("uid", userId);
+        postRequest.addProperty("orid", orid);
+        postRequest.addProperty("tid", tid);
+        HttpUtilsAsync.post(Constants.BASE_URL + "order/teacher/allot", postRequest, asyncHttpResponseHandler);
+    }
+
+    /**
+     * 1.1.26 学车订单-分配教练
+     * 参数：orid  uid tid
+     * 调用示例：teacher/list
+     */
+    public void getTeacherList(String userId,AsyncHttpResponseHandler asyncHttpResponseHandler) {
+        JsonObject postRequest = new JsonObject();
+        postRequest.addProperty("uid", userId);
+        postRequest.addProperty("offset", ConstantsParams.PAGE_START);
+        postRequest.addProperty("pagesize", 999);
+        HttpUtilsAsync.post(Constants.BASE_URL + "teacher/list", postRequest, asyncHttpResponseHandler);
     }
 }

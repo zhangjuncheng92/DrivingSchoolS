@@ -303,7 +303,7 @@ public class LearnApplyFragment extends ZBaseToolBarFragment implements View.OnC
         orderDetail.setNumber(timeLength);
         orderDetail.setStarttime(tv_time.getText().toString());
         orderDetail.setLoginname(SharePreferencesUtil.getInstance().readUser().getLoginname());
-        orderDetail.setNickname(SharePreferencesUtil.getInstance().readUser().getNickname());
+        orderDetail.setNickname(SharePreferencesUtil.getInstance().readUser().getLoginname());
 
         ApiHttpClient.getInstance().learnApply(orderDetail, new ResultResponseHandler(getActivity(), "正在提交，请稍等") {
             @Override

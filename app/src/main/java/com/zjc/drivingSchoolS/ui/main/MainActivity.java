@@ -18,7 +18,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.mobo.mobolibrary.util.image.ImageLoader;
 import com.zjc.drivingSchoolS.R;
 import com.zjc.drivingSchoolS.db.SharePreferences.SharePreferencesUtil;
-import com.zjc.drivingSchoolS.db.model.UserInfo;
+import com.zjc.drivingSchoolS.db.models.UserInfo;
 import com.zjc.drivingSchoolS.jpush.JPushUtil;
 import com.zjc.drivingSchoolS.ui.account.AccountManagerActivity;
 import com.zjc.drivingSchoolS.ui.apply.ApplyActivity;
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         initToolBar();
         initNavigation();
         initView();
-//        initMap();
+        initOrder();
     }
 
     private void initToolBar() {
@@ -66,8 +66,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             UserInfo userInfo = SharePreferencesUtil.getInstance().readUser();
             SimpleDraweeView sdIcon = (SimpleDraweeView) headerView.findViewById(R.id.personal_main_frg_sd_icon);
             TextView tvName = (TextView) headerView.findViewById(R.id.personal_main_frg_tv_name);
-            ImageLoader.getInstance().displayImage(sdIcon, Constants.BASE_IP + userInfo.getPhotourl());
-            tvName.setText(userInfo.getNickname() + "");
+            ImageLoader.getInstance().displayImage(sdIcon, Constants.BASE_IP + userInfo.getLogo());
+            tvName.setText(userInfo.getSchoolname() + "");
         }
     }
 
@@ -82,10 +82,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
-    private void initMap() {
+    private void initOrder() {
         FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
-        MainMapFragment mainMapFragment = new MainMapFragment();
-        trans.add(R.id.main_map, mainMapFragment, "mainMapFragment").show(mainMapFragment).commit();
+        StudyListFragment fragment = new StudyListFragment();
+        trans.add(R.id.main_map, fragment, "StudyListFragment").show(fragment).commit();
     }
 
     @Override
