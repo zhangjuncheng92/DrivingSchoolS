@@ -85,8 +85,7 @@
             <TextView
                 android:id="@+id/tv_age"
                 style="@style/personal_detail_title"
-                android:drawableLeft="@drawable/icon_age"
-                android:text="@string/personal_detail_age" />
+                android:drawableLeft="@drawable/icon_age" />
 
             <com.zjc.drivingSchoolS.widget.ContainsEmojiEditText
                 android:id="@+id/hierarchical_create_resident_frg_edt_age"

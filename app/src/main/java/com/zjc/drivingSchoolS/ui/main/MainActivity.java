@@ -26,6 +26,7 @@ import com.zjc.drivingSchoolS.ui.collect.CollectManagerActivity;
 import com.zjc.drivingSchoolS.ui.login.LoginActivity;
 import com.zjc.drivingSchoolS.ui.notification.NotificationActivity;
 import com.zjc.drivingSchoolS.ui.order.OrderManagerActivity;
+import com.zjc.drivingSchoolS.ui.personal.PersonalActivity;
 import com.zjc.drivingSchoolS.utils.Constants;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
@@ -151,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         @Override
         public void onClick(View view) {
-            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            Intent intent = new Intent(MainActivity.this, PersonalActivity.class);
             startActivity(intent);
         }
     }

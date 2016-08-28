@@ -99,6 +99,9 @@
         <!--接单-->
         <activity android:name="com.zjc.drivingSchoolS.ui.receive.ReceiveActivity" />
 
+        <!--接单-->
+        <activity android:name="com.zjc.drivingSchoolS.ui.personal.PersonalActivity" />
+
         <!--百度地图-->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
@@ -112,8 +115,6 @@
             </intent-filter>
         </service>
         <!--百度地图 end-->
-
-
 
 
         <!-- for test mode start -->
@@ -144,9 +145,6 @@
             android:screenOrientation="behind"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <!-- alipay sdk end -->
-
-
-
 
 
         <!-- Required SDK核心功能-->
