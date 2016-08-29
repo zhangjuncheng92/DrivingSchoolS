@@ -39,10 +39,6 @@ public class MApp extends BaseApplication {
         initPay();
         JPushUtil.initJPush();
         SDKInitializer.initialize(this);
-
-        if (SharePreferencesUtil.getInstance().readCity() == null) {
-            SharePreferencesUtil.getInstance().saveCity(new City("1", "武汉市", new LatLngLocal(30.543622, 114.433890)));
-        }
     }
 
     private void initPay() {

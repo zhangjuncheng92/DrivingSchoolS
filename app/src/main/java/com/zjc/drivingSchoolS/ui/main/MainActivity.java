@@ -20,9 +20,7 @@ import com.zjc.drivingSchoolS.R;
 import com.zjc.drivingSchoolS.db.SharePreferences.SharePreferencesUtil;
 import com.zjc.drivingSchoolS.db.models.UserInfo;
 import com.zjc.drivingSchoolS.jpush.JPushUtil;
-import com.zjc.drivingSchoolS.ui.account.AccountManagerActivity;
 import com.zjc.drivingSchoolS.ui.apply.ApplyActivity;
-import com.zjc.drivingSchoolS.ui.collect.CollectManagerActivity;
 import com.zjc.drivingSchoolS.ui.login.LoginActivity;
 import com.zjc.drivingSchoolS.ui.notification.NotificationActivity;
 import com.zjc.drivingSchoolS.ui.order.OrderManagerActivity;
@@ -170,5 +168,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         SharePreferencesUtil.getInstance().setLogin(false);
         SharePreferencesUtil.getInstance().removePwd();
         verifyIsLogin();
+        //跳转到登录
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        startActivity(intent);
+        this.finish();
     }
 }

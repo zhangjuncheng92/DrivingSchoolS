@@ -120,6 +120,7 @@ public class LoginMainFragment extends ZBaseToolBarFragment implements View.OnCl
                 SharePreferencesUtil.getInstance().setLogin(true);
                 JPushUtil.setAliasAndTags();
                 startActivity(MainActivity.class);
+                getActivity().finish();
             }
         });
     }
