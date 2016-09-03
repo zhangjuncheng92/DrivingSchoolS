@@ -357,17 +357,29 @@ public class ApiHttpClient {
     }
 
     /**
-     * 1.1.26 学车订单-分配教练
+     * 1.1.26 学车订单-教练列表
      * 参数：orid  uid tid
      * 调用示例：teacher/list
      */
-    public void getTeacherList(String userId, AsyncHttpResponseHandler asyncHttpResponseHandler) {
+    public void getTeacherList(String userId, int start, int state, AsyncHttpResponseHandler asyncHttpResponseHandler) {
         JsonObject postRequest = new JsonObject();
         postRequest.addProperty("uid", userId);
-        postRequest.addProperty("offset", ConstantsParams.PAGE_START);
-        postRequest.addProperty("pagesize", 999);
-        postRequest.addProperty("type", 1);
+        postRequest.addProperty("offset", start);
+        postRequest.addProperty("pagesize", 20);
+        postRequest.addProperty("type", state);
         HttpUtilsAsync.post(Constants.BASE_URL + "teacher/list", postRequest, asyncHttpResponseHandler);
+    }
+
+    /**
+     * 1.1.31 收藏教练详情
+     * 参数
+     * 调用示例：/app/student/teacher/collect/detail
+     */
+    public void getTeacherDetail(String uid, String tid, AsyncHttpResponseHandler asyncHttpResponseHandler) {
+        JsonObject postRequest = new JsonObject();
+        postRequest.addProperty("uid", uid);
+        postRequest.addProperty("tid", tid);
+        HttpUtilsAsync.post(Constants.BASE_URL + "teacher/detail", postRequest, asyncHttpResponseHandler);
     }
 
 

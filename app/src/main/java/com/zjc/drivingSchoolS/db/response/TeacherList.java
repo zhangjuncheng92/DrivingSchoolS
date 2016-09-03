@@ -11,7 +11,7 @@ import java.util.List;
  * @author LJ
  * @date 2016年7月21日
  */
-public class TeacherListResponse extends AppResponse
+public class TeacherList extends AppResponse
 {	
 	private List<TeacherItem> tcitems;// 教练对象
 

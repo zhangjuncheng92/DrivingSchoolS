@@ -172,4 +172,17 @@ public class ConstantsParams {
         }
     }
 
+    /*** ########### 教练状态 ############
+     * 0:全部教练 1：可接单教练 2：不可接单教练
+     */
+
+    /**
+     * 全部教练
+     */
+    public static final int TEACHER_ALL = 0;
+    /**
+     * 可接单教练
+     */
+    public static final int TEACHER_ENABLE = 1;
+
 }

@@ -96,7 +96,7 @@
         <activity android:name="com.zjc.drivingSchoolS.ui.order.OrderManagerActivity" />
 
         <!--我的关注-->
-        <activity android:name="com.zjc.drivingSchoolS.ui.collect.CollectManagerActivity" />
+        <activity android:name=".ui.collect.TeacherManagerActivity" />
 
         <!--我的消息-->
         <activity android:name="com.zjc.drivingSchoolS.ui.notification.NotificationActivity" />

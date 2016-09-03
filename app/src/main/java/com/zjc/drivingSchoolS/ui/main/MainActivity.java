@@ -21,6 +21,7 @@ import com.zjc.drivingSchoolS.db.SharePreferences.SharePreferencesUtil;
 import com.zjc.drivingSchoolS.db.models.UserInfo;
 import com.zjc.drivingSchoolS.jpush.JPushUtil;
 import com.zjc.drivingSchoolS.ui.apply.ApplyActivity;
+import com.zjc.drivingSchoolS.ui.collect.TeacherManagerActivity;
 import com.zjc.drivingSchoolS.ui.login.LoginActivity;
 import com.zjc.drivingSchoolS.ui.notification.NotificationActivity;
 import com.zjc.drivingSchoolS.ui.order.OrderManagerActivity;
@@ -130,8 +131,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Intent intent = new Intent(MainActivity.this, OrderManagerActivity.class);
             startActivity(intent);
         } else if (id == R.id.main_action_teacher) {
-//            Intent intent = new Intent(MainActivity.this, CollectManagerActivity.class);
-//            startActivity(intent);
+            Intent intent = new Intent(MainActivity.this, TeacherManagerActivity.class);
+            startActivity(intent);
         } else if (id == R.id.main_action_notice) {
             Intent intent = new Intent(MainActivity.this, NotificationActivity.class);
             startActivity(intent);

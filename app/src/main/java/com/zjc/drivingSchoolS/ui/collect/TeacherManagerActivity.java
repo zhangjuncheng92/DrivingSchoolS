@@ -9,7 +9,7 @@ import com.zjc.drivingSchoolS.R;
 /**
  * Created by Administrator on 2016/8/18.
  */
-public class CollectManagerActivity extends ZBaseActivity {
+public class TeacherManagerActivity extends ZBaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +20,7 @@ public class CollectManagerActivity extends ZBaseActivity {
     @Override
     protected void initBaseView() {
         super.initBaseView();
-        CollectManagerFragment fragment = new CollectManagerFragment();
+        TeacherManagerFragment fragment = new TeacherManagerFragment();
         FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
         trans.addToBackStack(null);
         trans.add(R.id.root, fragment).commit();
