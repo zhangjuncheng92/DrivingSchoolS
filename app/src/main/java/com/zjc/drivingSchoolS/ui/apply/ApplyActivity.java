@@ -26,7 +26,7 @@ public class ApplyActivity extends ZBaseActivity {
     protected void initBaseView() {
         if (getIntent().getExtras() == null) {
             FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
-            ApplyListFragment fragment = new ApplyListFragment();
+            ApplyReceiveFragment fragment = new ApplyReceiveFragment();
             trans.addToBackStack(null);
             trans.add(R.id.root, fragment).commit();
         } else if (getIntent().getExtras() != null && getIntent().getExtras().containsKey(Constants.ARGUMENT)) {

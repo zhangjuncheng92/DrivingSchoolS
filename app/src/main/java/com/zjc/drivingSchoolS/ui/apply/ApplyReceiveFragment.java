@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jude.easyrecyclerview.EasyRecyclerView;
-import com.mobo.mobolibrary.ui.base.ZBaseFragment;
 import com.mobo.mobolibrary.ui.base.ZBaseToolBarFragment;
 import com.mobo.mobolibrary.ui.base.adapter.ZBaseRecyclerViewAdapter;
 import com.mobo.mobolibrary.ui.divideritem.HorizontalDividerItemDecoration;
@@ -20,7 +19,7 @@ import com.zjc.drivingSchoolS.db.SharePreferences.SharePreferencesUtil;
 import com.zjc.drivingSchoolS.db.model.OrderItem;
 import com.zjc.drivingSchoolS.db.parser.OrderListResponseParser;
 import com.zjc.drivingSchoolS.db.response.OrderListResponse;
-import com.zjc.drivingSchoolS.ui.apply.adapter.ApplyOrderAdapter;
+import com.zjc.drivingSchoolS.ui.apply.adapter.ApplyReceiveAdapter;
 import com.zjc.drivingSchoolS.utils.Constants;
 import com.zjc.drivingSchoolS.utils.ConstantsParams;
 
@@ -29,9 +28,9 @@ import de.greenrobot.event.EventBus;
 /**
  * Created by Administrator on 2016/8/17.
  */
-public class ApplyListFragment extends ZBaseToolBarFragment implements SwipeRefreshLayout.OnRefreshListener, ZBaseRecyclerViewAdapter.OnLoadMoreListener, ZBaseRecyclerViewAdapter.OnItemClickListener {
+public class ApplyReceiveFragment extends ZBaseToolBarFragment implements SwipeRefreshLayout.OnRefreshListener, ZBaseRecyclerViewAdapter.OnLoadMoreListener, ZBaseRecyclerViewAdapter.OnItemClickListener {
     private EasyRecyclerView mRecyclerView;
-    private ApplyOrderAdapter mAdapter;
+    private ApplyReceiveAdapter mAdapter;
 
     @Override
     protected void setTitle() {
@@ -40,7 +39,7 @@ public class ApplyListFragment extends ZBaseToolBarFragment implements SwipeRefr
 
     @Override
     protected int inflateContentView() {
-        return R.layout.order_manager_frg;
+        return R.layout.study_receive_frg;
     }
 
     @Override
@@ -63,7 +62,7 @@ public class ApplyListFragment extends ZBaseToolBarFragment implements SwipeRefr
     }
 
     private void initAdapter() {
-        mAdapter = new ApplyOrderAdapter(getActivity());
+        mAdapter = new ApplyReceiveAdapter(getActivity());
         mAdapter.setOnItemClickLitener(this);
         mAdapter.setMore(R.layout.view_more, this);
         mAdapter.setNoMore(R.layout.view_nomore);
@@ -81,7 +80,7 @@ public class ApplyListFragment extends ZBaseToolBarFragment implements SwipeRefr
 
     @Override
     public void onRefresh() {
-        ApiHttpClient.getInstance().startOrders(SharePreferencesUtil.getInstance().readUser().getUid(), ConstantsParams.PAGE_START, new ResultResponseHandler(getActivity(), mRecyclerView) {
+        ApiHttpClient.getInstance().getApplyOrders(SharePreferencesUtil.getInstance().readUser().getUid(), ConstantsParams.PAGE_START, new ResultResponseHandler(getActivity(), mRecyclerView) {
 
             @Override
             public void onResultSuccess(String result) {
@@ -94,7 +93,7 @@ public class ApplyListFragment extends ZBaseToolBarFragment implements SwipeRefr
     }
 
     private void findOrders() {
-        ApiHttpClient.getInstance().startOrders(SharePreferencesUtil.getInstance().readUser().getUid(), ConstantsParams.PAGE_START, new ResultResponseHandler(getActivity(), getEmptyLayout()) {
+        ApiHttpClient.getInstance().getApplyOrders(SharePreferencesUtil.getInstance().readUser().getUid(), ConstantsParams.PAGE_START, new ResultResponseHandler(getActivity(), getEmptyLayout()) {
 
             @Override
             public void onResultSuccess(String result) {
@@ -108,7 +107,7 @@ public class ApplyListFragment extends ZBaseToolBarFragment implements SwipeRefr
     @Override
     public void onLoadMore() {
         int start = mAdapter.getCount();
-        ApiHttpClient.getInstance().startOrders(SharePreferencesUtil.getInstance().readUser().getUid(), start, new ResultResponseHandler(getActivity()) {
+        ApiHttpClient.getInstance().getApplyOrders(SharePreferencesUtil.getInstance().readUser().getUid(), start, new ResultResponseHandler(getActivity()) {
 
             @Override
             public void onResultSuccess(String result) {
@@ -117,6 +116,11 @@ public class ApplyListFragment extends ZBaseToolBarFragment implements SwipeRefr
                 isLoadFinish(orderListResponse.getOrderitems().size());
             }
         });
+    }
+
+    @Override
+    public void sendRequestData() {
+        findOrders();
     }
 
     /**

@@ -1,4 +1,4 @@
-package com.zjc.drivingSchoolS.ui.main.adapter;
+package com.zjc.drivingSchoolS.ui.apply.adapter;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -22,8 +22,8 @@ import com.zjc.drivingSchoolS.utils.ConstantsParams;
 /**
  * Created by Administrator on 2016/8/17.
  */
-public class StudyOrderAdapter extends ZBaseRecyclerViewAdapter {
-    public StudyOrderAdapter(Context context) {
+public class ApplyReceiveAdapter extends ZBaseRecyclerViewAdapter {
+    public ApplyReceiveAdapter(Context context) {
         super(context);
     }
 
@@ -43,7 +43,7 @@ public class StudyOrderAdapter extends ZBaseRecyclerViewAdapter {
         private TextView tvMoney;
 
         public OrderManagerFrgViewHolder(ViewGroup parent) {
-            super(parent, R.layout.study_order_item);
+            super(parent, R.layout.study_receive_item);
             tvName = $(R.id.order_name);
             tvStatus = $(R.id.order_status);
             tvNumber = $(R.id.order_number);
@@ -108,14 +108,14 @@ public class StudyOrderAdapter extends ZBaseRecyclerViewAdapter {
     }
 
     private void ReceiveStudyOrder(final OrderItem item) {
-        ApiHttpClient.getInstance().receiveStudyOrder(SharePreferencesUtil.getInstance().readUser().getUid(), item.getOrid(), new ResultResponseHandler(getContext(), "正在接单") {
+        ApiHttpClient.getInstance().receiveApplyOrder(SharePreferencesUtil.getInstance().readUser().getUid(), item.getOrid(), new ResultResponseHandler(getContext(), "正在接单") {
 
             @Override
             public void onResultSuccess(String result) {
-                item.setState(ConstantsParams.STUDY_ORDER_TWO);
-                StudyOrderAdapter.this.notifyDataSetChanged();
+                item.setState(ConstantsParams.STUDY_ORDER_EIGHT);
+                ApplyReceiveAdapter.this.notifyDataSetChanged();
                 //跳转到分配界面
-                startDistributionOrder(item);
+//                startDistributionOrder(item);
             }
         });
     }
@@ -123,7 +123,7 @@ public class StudyOrderAdapter extends ZBaseRecyclerViewAdapter {
     private void startDistributionOrder(OrderItem item) {
         ZBaseFragment fragment = (ZBaseFragment) ((AppCompatActivity) getContext()).getSupportFragmentManager().getFragments().get(0);
         Bundle bundle = new Bundle();
-        bundle.putSerializable(Constants.ARGUMENT,item);
-        fragment.startActivity(ReceiveActivity.class,bundle);
+        bundle.putSerializable(Constants.ARGUMENT, item);
+        fragment.startActivity(ReceiveActivity.class, bundle);
     }
 }

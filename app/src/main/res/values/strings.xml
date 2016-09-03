@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DrivingSchoolS</string>
+    <string name="app_name">随驾联盟S</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -46,7 +46,7 @@
     <string name="login_register_age_small">年龄格式不正确，请重新选择</string>
 
     <!--预约学车-->
-    <string name="title_study_history">预约学车</string>
+    <string name="title_study_history">学车订单</string>
     <string name="title_apply_history">报名订单</string>
 
     <!--预约考试-->
@@ -74,16 +74,16 @@
     <string name="account_withdraw_hint">请输入提现金额</string>
     <string name="account_withdraw_hint2">提现至您最近用于支付或充值的资金账户</string>
 
-    <!--我的收藏-->
-    <string name="title_collect">我的收藏</string>
+    <!--查询教练-->
+    <string name="title_teacher">查询教练</string>
 
     <!--我的订单-->
     <string name="title_history">我的订单</string>
 
     <!--我的消息-->
-    <string name="title_notice">我的消息</string>
+    <string name="title_notice">消息中心</string>
 
-    <string name="title_more">更多</string>
+    <string name="title_modify_password">修改密码</string>
 
     <!--驾校主页-->
     <string name="title_school">驾校主页</string>

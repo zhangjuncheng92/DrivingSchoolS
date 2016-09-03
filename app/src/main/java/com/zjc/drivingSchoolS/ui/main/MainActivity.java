@@ -64,8 +64,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void initOrder() {
         FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
-        StudyListFragment fragment = new StudyListFragment();
-        trans.add(R.id.main_map, fragment, "StudyListFragment").show(fragment).commit();
+        StudyReceiveFragment fragment = new StudyReceiveFragment();
+        trans.add(R.id.main_map, fragment, "StudyReceiveFragment").show(fragment).commit();
     }
 
     @Override
@@ -123,22 +123,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.main_action_account) {
-//            Intent intent = new Intent(MainActivity.this, AccountManagerActivity.class);
-//            startActivity(intent);
-        } else if (id == R.id.main_action_apply_history) {
+        if (id == R.id.main_action_apply_history) {
             Intent intent = new Intent(MainActivity.this, ApplyActivity.class);
             startActivity(intent);
-        } else if (id == R.id.main_action_collect) {
-//            Intent intent = new Intent(MainActivity.this, CollectManagerActivity.class);
-//            startActivity(intent);
         } else if (id == R.id.main_action_history) {
             Intent intent = new Intent(MainActivity.this, OrderManagerActivity.class);
             startActivity(intent);
+        } else if (id == R.id.main_action_teacher) {
+//            Intent intent = new Intent(MainActivity.this, CollectManagerActivity.class);
+//            startActivity(intent);
         } else if (id == R.id.main_action_notice) {
             Intent intent = new Intent(MainActivity.this, NotificationActivity.class);
             startActivity(intent);
-        } else if (id == R.id.main_action_more) {
+        } else if (id == R.id.main_action_modify_password) {
+
         } else if (id == R.id.main_action_logout) {
             logout();
         }

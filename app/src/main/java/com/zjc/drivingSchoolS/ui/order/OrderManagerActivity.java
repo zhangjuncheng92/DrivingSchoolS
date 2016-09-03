@@ -8,17 +8,15 @@ import android.widget.RadioButton;
 
 import com.mobo.mobolibrary.ui.base.ZBaseActivity;
 import com.zjc.drivingSchoolS.R;
-import com.zjc.drivingSchoolS.ui.apply.ApplyListFragment;
-import com.zjc.drivingSchoolS.ui.main.StudyListFragment;
 
 /**
  * Created by Administrator on 2016/8/17.
  */
 public class OrderManagerActivity extends ZBaseActivity implements CompoundButton.OnCheckedChangeListener {
-    private RadioButton rbTop1; // 按医生预约
-    private RadioButton rbTop2; // 按时间预约
+    private RadioButton rbTop1; // 学车订单
+    private RadioButton rbTop2; // 报名订单
     private StudyListFragment studyFragment;
-    private StudyListFragment applyFragment;
+    private ApplyListFragment applyFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +48,7 @@ public class OrderManagerActivity extends ZBaseActivity implements CompoundButto
         FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
         trans.addToBackStack(null);
         studyFragment = new StudyListFragment();
-        applyFragment = new StudyListFragment();
+        applyFragment = new ApplyListFragment();
         trans.add(R.id.root, studyFragment, "StudyListFragment").add(R.id.root, applyFragment, "ApplyListFragment").show(studyFragment).hide(applyFragment).commit();
     }
 

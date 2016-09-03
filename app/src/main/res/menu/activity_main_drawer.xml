@@ -7,25 +7,21 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/title_apply_history" />
         <item
-            android:id="@+id/main_action_account"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="@string/title_account" />
-        <item
-            android:id="@+id/main_action_collect"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/title_collect" />
-        <item
             android:id="@+id/main_action_history"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/title_history" />
+        <item
+            android:id="@+id/main_action_teacher"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="@string/title_teacher" />
         <item
             android:id="@+id/main_action_notice"
             android:icon="@drawable/ic_menu_manage"
             android:title="@string/title_notice" />
         <item
-            android:id="@+id/main_action_more"
+            android:id="@+id/main_action_modify_password"
             android:icon="@drawable/ic_menu_manage"
-            android:title="@string/title_more" />
+            android:title="@string/title_modify_password" />
     </group>
 
     <item android:title="@string/login_cancel">

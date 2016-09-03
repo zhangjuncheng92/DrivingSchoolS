@@ -264,16 +264,29 @@ public class ApiHttpClient {
 
 
     /**
-     * 1.1.14 学员学车订单列表
+     * 1.1.14 学员学车接单列表
      * 参数：pagesize  uid offset   state  orderid creatdate
      * 调用示例：order/take/list
      */
-    public void findOrders(String userId, int start, AsyncHttpResponseHandler asyncHttpResponseHandler) {
+    public void getStudyOrders(String userId, int start, AsyncHttpResponseHandler asyncHttpResponseHandler) {
         JsonObject postRequest = new JsonObject();
         postRequest.addProperty("uid", userId);
         postRequest.addProperty("offset", start);
         postRequest.addProperty("pagesize", ConstantsParams.PAGE_SIZE);
         HttpUtilsAsync.post(Constants.BASE_URL + "order/take/list", postRequest, asyncHttpResponseHandler);
+    }
+
+    /**
+     * 1.1.14 学员学车订单历史
+     * 参数：pagesize  uid offset   state  orderid creatdate
+     * 调用示例：order/take/list
+     */
+    public void getStudyOrdersHistory(String userId, int start, String state, AsyncHttpResponseHandler asyncHttpResponseHandler) {
+        JsonObject postRequest = new JsonObject();
+        postRequest.addProperty("uid", userId);
+        postRequest.addProperty("offset", start);
+        postRequest.addProperty("pagesize", ConstantsParams.PAGE_SIZE);
+        HttpUtilsAsync.post(Constants.BASE_URL + "order/list", postRequest, asyncHttpResponseHandler);
     }
 
     /**
@@ -353,30 +366,31 @@ public class ApiHttpClient {
         postRequest.addProperty("uid", userId);
         postRequest.addProperty("offset", ConstantsParams.PAGE_START);
         postRequest.addProperty("pagesize", 999);
+        postRequest.addProperty("type", 1);
         HttpUtilsAsync.post(Constants.BASE_URL + "teacher/list", postRequest, asyncHttpResponseHandler);
     }
 
 
     /** ###########  报名  ############  */
     /**
-     * 1.1.21 学员报名订单列表
+     * 1.1.21 学员报名订单列表历史
      * 参数：pagesize  uid offset   state  orderid creatdate
      * 调用示例：/app/student/order/list
      */
-    public void startOrders(String userId, int start, String status, AsyncHttpResponseHandler asyncHttpResponseHandler) {
+    public void getApplyOrdersHistory(String userId, int start, AsyncHttpResponseHandler asyncHttpResponseHandler) {
         JsonObject postRequest = new JsonObject();
         postRequest.addProperty("uid", userId);
         postRequest.addProperty("offset", start);
         postRequest.addProperty("pagesize", ConstantsParams.PAGE_SIZE);
-        HttpUtilsAsync.post(Constants.BASE_URL + "signuporder/take/list", postRequest, asyncHttpResponseHandler);
+        HttpUtilsAsync.post(Constants.BASE_URL + "signuporder/list", postRequest, asyncHttpResponseHandler);
     }
 
     /**
-     * 1.1.21 学员报名订单列表
+     * 1.1.21 学员报名订单列表接单表
      * 参数：pagesize  uid offset   state  orderid creatdate
      * 调用示例：/app/student/order/list
      */
-    public void startOrders(String userId, int start, AsyncHttpResponseHandler asyncHttpResponseHandler) {
+    public void getApplyOrders(String userId, int start, AsyncHttpResponseHandler asyncHttpResponseHandler) {
         JsonObject postRequest = new JsonObject();
         postRequest.addProperty("uid", userId);
         postRequest.addProperty("offset", start);

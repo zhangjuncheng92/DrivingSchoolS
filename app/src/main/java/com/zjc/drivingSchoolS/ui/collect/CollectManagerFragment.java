@@ -28,7 +28,7 @@ public class CollectManagerFragment extends ZBaseToolBarFragment implements Swip
 
     @Override
     protected int inflateContentView() {
-        return R.layout.order_manager_frg;
+        return R.layout.study_receive_frg;
     }
 
     @Override

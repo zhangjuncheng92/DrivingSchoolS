@@ -1,4 +1,4 @@
-package com.zjc.drivingSchoolS.ui.main;
+package com.zjc.drivingSchoolS.ui.order;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -11,7 +11,6 @@ import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.mobo.mobolibrary.ui.base.ZBaseFragment;
 import com.mobo.mobolibrary.ui.base.adapter.ZBaseRecyclerViewAdapter;
 import com.mobo.mobolibrary.ui.divideritem.HorizontalDividerItemDecoration;
-import com.mobo.mobolibrary.ui.widget.empty.EmptyLayout;
 import com.zjc.drivingSchoolS.R;
 import com.zjc.drivingSchoolS.api.ApiHttpClient;
 import com.zjc.drivingSchoolS.api.ResultResponseHandler;
@@ -19,8 +18,8 @@ import com.zjc.drivingSchoolS.db.SharePreferences.SharePreferencesUtil;
 import com.zjc.drivingSchoolS.db.model.OrderItem;
 import com.zjc.drivingSchoolS.db.parser.OrderListResponseParser;
 import com.zjc.drivingSchoolS.db.response.OrderListResponse;
-import com.zjc.drivingSchoolS.eventbus.StudyDistributionEvent;
-import com.zjc.drivingSchoolS.ui.main.adapter.StudyOrderAdapter;
+import com.zjc.drivingSchoolS.eventbus.StudyOrderCancelEvent;
+import com.zjc.drivingSchoolS.ui.order.adapter.ApplyHistoryAdapter;
 import com.zjc.drivingSchoolS.utils.Constants;
 import com.zjc.drivingSchoolS.utils.ConstantsParams;
 
@@ -29,18 +28,18 @@ import de.greenrobot.event.EventBus;
 /**
  * Created by Administrator on 2016/8/17.
  */
-public class StudyListFragment extends ZBaseFragment implements SwipeRefreshLayout.OnRefreshListener, ZBaseRecyclerViewAdapter.OnLoadMoreListener, ZBaseRecyclerViewAdapter.OnItemClickListener {
+public class ApplyListFragment extends ZBaseFragment implements SwipeRefreshLayout.OnRefreshListener, ZBaseRecyclerViewAdapter.OnLoadMoreListener, ZBaseRecyclerViewAdapter.OnItemClickListener {
     private String orderStatus;
     private EasyRecyclerView mRecyclerView;
-    private StudyOrderAdapter mAdapter;
+    private ApplyHistoryAdapter mAdapter;
 
     /**
      * 传入需要的参数，设置给arguments
      */
-    public static StudyListFragment newInstance(String bean) {
+    public static ApplyListFragment newInstance(String bean) {
         Bundle bundle = new Bundle();
         bundle.putSerializable(Constants.ARGUMENT, bean);
-        StudyListFragment fragment = new StudyListFragment();
+        ApplyListFragment fragment = new ApplyListFragment();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -57,7 +56,7 @@ public class StudyListFragment extends ZBaseFragment implements SwipeRefreshLayo
 
     @Override
     protected int inflateContentView() {
-        return R.layout.order_manager_frg;
+        return R.layout.comm_recycler_view_frg;
     }
 
     @Override
@@ -74,13 +73,13 @@ public class StudyListFragment extends ZBaseFragment implements SwipeRefreshLayo
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity())
                 .colorResId(R.color.comm_divider)
-                .sizeResId(R.dimen.comm_divider_one)
+                .sizeResId(R.dimen.comm_divider_line)
                 .build());
         mRecyclerView.setRefreshListener(this);
     }
 
     private void initAdapter() {
-        mAdapter = new StudyOrderAdapter(getActivity());
+        mAdapter = new ApplyHistoryAdapter(getActivity());
         mAdapter.setOnItemClickLitener(this);
         mAdapter.setMore(R.layout.view_more, this);
         mAdapter.setNoMore(R.layout.view_nomore);
@@ -93,12 +92,12 @@ public class StudyListFragment extends ZBaseFragment implements SwipeRefreshLayo
         OrderItem orderItem = (OrderItem) mAdapter.getItem(position);
         Bundle bundle = new Bundle();
         bundle.putSerializable(Constants.ARGUMENT, orderItem.getOrid());
-//        startActivity(StudyOrderActivity.class, bundle);
+//        startActivity(getActivity(), bundle);
     }
 
     @Override
     public void onRefresh() {
-        ApiHttpClient.getInstance().findOrders(SharePreferencesUtil.getInstance().readUser().getUid(), ConstantsParams.PAGE_START, new ResultResponseHandler(getActivity(), getEmptyLayout()) {
+        ApiHttpClient.getInstance().getApplyOrdersHistory(SharePreferencesUtil.getInstance().readUser().getUid(), ConstantsParams.PAGE_START, new ResultResponseHandler(getActivity(), mRecyclerView) {
 
             @Override
             public void onResultSuccess(String result) {
@@ -111,7 +110,7 @@ public class StudyListFragment extends ZBaseFragment implements SwipeRefreshLayo
     }
 
     private void findOrders() {
-        ApiHttpClient.getInstance().findOrders(SharePreferencesUtil.getInstance().readUser().getUid(), ConstantsParams.PAGE_START, new ResultResponseHandler(getActivity(), getEmptyLayout()) {
+        ApiHttpClient.getInstance().getApplyOrdersHistory(SharePreferencesUtil.getInstance().readUser().getUid(), ConstantsParams.PAGE_START, new ResultResponseHandler(getActivity(), getEmptyLayout()) {
 
             @Override
             public void onResultSuccess(String result) {
@@ -125,7 +124,7 @@ public class StudyListFragment extends ZBaseFragment implements SwipeRefreshLayo
     @Override
     public void onLoadMore() {
         int start = mAdapter.getCount();
-        ApiHttpClient.getInstance().findOrders(SharePreferencesUtil.getInstance().readUser().getUid(), start, new ResultResponseHandler(getActivity()) {
+        ApiHttpClient.getInstance().getApplyOrdersHistory(SharePreferencesUtil.getInstance().readUser().getUid(), start, new ResultResponseHandler(getActivity()) {
 
             @Override
             public void onResultSuccess(String result) {
@@ -140,11 +139,6 @@ public class StudyListFragment extends ZBaseFragment implements SwipeRefreshLayo
      * 加载完成
      */
     public boolean isLoadFinish(int size) {
-        if (size == 0) {
-            getEmptyLayout().setErrorType(EmptyLayout.NODATA_ENABLE_CLICK);
-            return true;
-        }
-
         if (size < ConstantsParams.PAGE_SIZE) {
             mAdapter.stopMore();
             mAdapter.setNoMore(R.layout.view_nomore);
@@ -153,31 +147,21 @@ public class StudyListFragment extends ZBaseFragment implements SwipeRefreshLayo
         return false;
     }
 
-
     /**
-     * 分配预约单成功，删除订单
+     * 更新预约单取消状态
      *
      * @param event
      */
-    public void onEventMainThread(StudyDistributionEvent event) {
-        deleteStudyOrder(event.getOrderItem());
-    }
-
-    private void deleteStudyOrder(OrderItem item) {
-        //更新接口数据
-        for (int i = 0; i < mAdapter.getCount(); i++) {
-            OrderItem orderItem = (OrderItem) mAdapter.getItem(i);
-            if (orderItem.getOrid().equals(item.getOrid())) {
-                mAdapter.remove(mAdapter.getItem(i));
-                mAdapter.notifyItemRemoved(i);
+    public void onEventMainThread(StudyOrderCancelEvent event) {
+        int count = mAdapter.getCount();
+        for (int i = 0; i < count; i++) {
+            OrderItem item = (OrderItem) mAdapter.getItem(i);
+            if (item.getOrid().equals(event.getOrid())) {
+                item.setState(ConstantsParams.STUDY_ORDER_NINE);
+                mAdapter.notifyItemChanged(i);
                 break;
             }
         }
-    }
-
-    @Override
-    public void sendRequestData() {
-        findOrders();
     }
 
     @Override
