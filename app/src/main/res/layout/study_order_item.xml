@@ -117,21 +117,23 @@
                 android:textColor="@color/comm_white" />
 
             <TextView
-                android:id="@+id/order_unsubject"
+                android:id="@+id/order_agree"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/layout_margin_l"
                 android:background="@drawable/comm_select_orange"
                 android:padding="@dimen/layout_margin_l"
-                android:text="退订"
+                android:text="同意"
                 android:textColor="@color/comm_white" />
 
             <TextView
-                android:id="@+id/order_assess"
+                android:id="@+id/order_disagree"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/layout_margin_l"
                 android:background="@drawable/comm_select_orange"
                 android:padding="10dp"
-                android:text="我要评价"
+                android:text="不同意"
                 android:textColor="@color/comm_white" />
         </LinearLayout>
     </RelativeLayout>

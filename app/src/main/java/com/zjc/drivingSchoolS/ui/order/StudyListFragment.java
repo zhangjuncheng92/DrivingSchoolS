@@ -19,7 +19,7 @@ import com.zjc.drivingSchoolS.db.model.OrderItem;
 import com.zjc.drivingSchoolS.db.parser.OrderListResponseParser;
 import com.zjc.drivingSchoolS.db.response.OrderListResponse;
 import com.zjc.drivingSchoolS.eventbus.StudyOrderCancelEvent;
-import com.zjc.drivingSchoolS.ui.order.adapter.StudyOrderAdapter;
+import com.zjc.drivingSchoolS.ui.order.adapter.StudyHistoryAdapter;
 import com.zjc.drivingSchoolS.utils.Constants;
 import com.zjc.drivingSchoolS.utils.ConstantsParams;
 
@@ -31,7 +31,7 @@ import de.greenrobot.event.EventBus;
 public class StudyListFragment extends ZBaseFragment implements SwipeRefreshLayout.OnRefreshListener, ZBaseRecyclerViewAdapter.OnLoadMoreListener, ZBaseRecyclerViewAdapter.OnItemClickListener {
     private String orderStatus;
     private EasyRecyclerView mRecyclerView;
-    private StudyOrderAdapter mAdapter;
+    private StudyHistoryAdapter mAdapter;
 
     /**
      * 传入需要的参数，设置给arguments
@@ -79,7 +79,7 @@ public class StudyListFragment extends ZBaseFragment implements SwipeRefreshLayo
     }
 
     private void initAdapter() {
-        mAdapter = new StudyOrderAdapter(getActivity());
+        mAdapter = new StudyHistoryAdapter(getActivity());
         mAdapter.setOnItemClickLitener(this);
         mAdapter.setMore(R.layout.view_more, this);
         mAdapter.setNoMore(R.layout.view_nomore);
@@ -92,7 +92,7 @@ public class StudyListFragment extends ZBaseFragment implements SwipeRefreshLayo
         OrderItem orderItem = (OrderItem) mAdapter.getItem(position);
         Bundle bundle = new Bundle();
         bundle.putSerializable(Constants.ARGUMENT, orderItem.getOrid());
-//        startActivity(StudyOrderActivity.class, bundle);
+        startActivity(StudyOrderDetailActivity.class, bundle);
     }
 
     @Override

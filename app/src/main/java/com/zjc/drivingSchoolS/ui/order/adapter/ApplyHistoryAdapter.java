@@ -43,7 +43,7 @@ public class ApplyHistoryAdapter extends ZBaseRecyclerViewAdapter {
             mTvTime = $(R.id.order_time);
             mTvPay = $(R.id.order_pay);
             mTvCancel = $(R.id.order_cancel);
-            mTvDiscuss = $(R.id.order_assess);
+            mTvDiscuss = $(R.id.order_disagree);
             mTvMoney = $(R.id.order_money);
         }
 

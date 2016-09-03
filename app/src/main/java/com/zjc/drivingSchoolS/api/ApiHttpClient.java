@@ -298,7 +298,7 @@ public class ApiHttpClient {
         JsonObject postRequest = new JsonObject();
         postRequest.addProperty("uid", userId);
         postRequest.addProperty("orid", orid);
-        HttpUtilsAsync.post(Constants.BASE_URL + "student/order/detail", postRequest, asyncHttpResponseHandler);
+        HttpUtilsAsync.post(Constants.BASE_URL + "order/detail", postRequest, asyncHttpResponseHandler);
     }
 
     /**
@@ -371,7 +371,7 @@ public class ApiHttpClient {
     }
 
     /**
-     * 1.1.31 收藏教练详情
+     * 1.1.31 教练详情
      * 参数
      * 调用示例：/app/student/teacher/collect/detail
      */
@@ -380,6 +380,19 @@ public class ApiHttpClient {
         postRequest.addProperty("uid", uid);
         postRequest.addProperty("tid", tid);
         HttpUtilsAsync.post(Constants.BASE_URL + "teacher/detail", postRequest, asyncHttpResponseHandler);
+    }
+
+    /**
+     * 1.1.26 学车订单-是否同意退订
+     * 参数：orid  uid
+     * 调用示例：/app/school/order/refund
+     */
+    public void studyOrderIsAgree(String userId, String orid, boolean isAgree, AsyncHttpResponseHandler asyncHttpResponseHandler) {
+        JsonObject postRequest = new JsonObject();
+        postRequest.addProperty("uid", userId);
+        postRequest.addProperty("orid", orid);
+        postRequest.addProperty("result", isAgree);
+        HttpUtilsAsync.post(Constants.BASE_URL + "order/refund", postRequest, asyncHttpResponseHandler);
     }
 
 
@@ -420,5 +433,17 @@ public class ApiHttpClient {
         postRequest.addProperty("uid", userId);
         postRequest.addProperty("orid", orid);
         HttpUtilsAsync.post(Constants.BASE_URL + "signuporder/take/sub", postRequest, asyncHttpResponseHandler);
+    }
+
+    /**
+     * 1.1.23 学员报名订单详情
+     * 参数：orid  uid
+     * 调用示例：/app/student/order/detail
+     */
+    public void getApplyDetail(String userId, String orid, AsyncHttpResponseHandler asyncHttpResponseHandler) {
+        JsonObject postRequest = new JsonObject();
+        postRequest.addProperty("uid", userId);
+        postRequest.addProperty("orid", orid);
+        HttpUtilsAsync.post(Constants.BASE_URL + "signuporder/detail", postRequest, asyncHttpResponseHandler);
     }
 }

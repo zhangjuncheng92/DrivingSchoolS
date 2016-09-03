@@ -92,7 +92,7 @@ public class ApplyListFragment extends ZBaseFragment implements SwipeRefreshLayo
         OrderItem orderItem = (OrderItem) mAdapter.getItem(position);
         Bundle bundle = new Bundle();
         bundle.putSerializable(Constants.ARGUMENT, orderItem.getOrid());
-//        startActivity(getActivity(), bundle);
+        startActivity(ApplyOrderDetailActivity.class, bundle);
     }
 
     @Override
