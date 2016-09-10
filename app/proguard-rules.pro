@@ -44,7 +44,7 @@
           public static final int *;
        }
 
--keep class com.zjc.drivingschool.db.** { *; }
+-keep class com.zjc.drivingSchoolS.db.** { *; }
 -keep class com.mobo.mobolibrary.model.** { *; }
 # The support library contains references to newer platform versions.
 # Don't warn about those in case this app is linking against an older
