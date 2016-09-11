@@ -21,8 +21,8 @@
         <item name="android:textSize">@dimen/text_size_title</item>
     </style>
 
-    <style name="comm_title_gary">
-        <item name="android:textColor">@color/comm_gary</item>
+    <style name="comm_title_gray">
+        <item name="android:textColor">@color/comm_text</item>
         <item name="android:textSize">@dimen/text_size_title</item>
     </style>
 
@@ -172,5 +172,20 @@
 
     <style name="referral_info_status_txt" parent="comm_subtitle_black">
         <item name="android:textColor">@color/referral_info_status_txt</item>
+    </style>
+
+
+    <!-- 我的订单按钮-->
+    <style name="study_order_item_button">
+        <item name="android:textColor">@color/comm_white</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/comm_select_orange</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:paddingRight">@dimen/layout_padding_m</item>
+        <item name="android:paddingLeft">@dimen/layout_padding_m</item>
+        <item name="android:paddingTop">@dimen/layout_padding_ls</item>
+        <item name="android:paddingBottom">@dimen/layout_padding_ls</item>
     </style>
 </resources>

@@ -13,6 +13,12 @@
         <item name="android:background">@color/comm_gary</item>
     </style>
 
+    <style name="line_horStyle_three">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/comm_divider_line_1</item>
+        <item name="android:background">@color/comm_divider</item>
+    </style>
+
     <style name="line_verStyle">
         <item name="android:layout_width">0.5dp</item>
         <item name="android:layout_height">match_parent</item>

@@ -13,6 +13,11 @@
     <color name="registration_pink">@color/comm_pink</color>
 
 
+    <color name="comm_title">@color/comm_black</color>
+    <color name="comm_subtitle">#A5A5A5</color>
+    <color name="comm_text">#666666</color>
+
+
     <!--二维码扫描-->
     <color name="result_view">#b0000000</color>
     <color name="viewfinder_mask">#60000000</color>

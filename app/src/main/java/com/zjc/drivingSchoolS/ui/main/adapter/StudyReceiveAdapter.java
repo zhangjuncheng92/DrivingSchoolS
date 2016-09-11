@@ -61,7 +61,7 @@ public class StudyReceiveAdapter extends ZBaseRecyclerViewAdapter {
             tvName.setText(service.getTitle());
             tvNumber.setText(service.getContactsname());
             tvTime.setText(service.getContactsphone());
-            tvMoney.setText(service.getTotal() + "");
+            tvMoney.setText(service.getTotal() + "元");
             tvStatus.setText(ConstantsParams.getStatus(service.getState()));
             //	1.预订成功 2.已支付 3.申请退订 4.已退订 5.消费中 6.已消费 7.待评价 8.已完成 9.已取消
             if (service.getState().equals(ConstantsParams.STUDY_ORDER_ONE)) {

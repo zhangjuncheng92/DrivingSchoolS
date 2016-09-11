@@ -7,21 +7,18 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.zjc.drivingSchoolS.R;
 import com.zjc.drivingSchoolS.db.SharePreferences.SharePreferencesUtil;
-import com.zjc.drivingSchoolS.ui.login.LoginActivity;
 
 
 public class WelcomeActivity extends Activity {
-    private SimpleDraweeView sdBg;
-    private static final long WAIT_TIME = 0;
+    private static final long WAIT_TIME = 2000;
     private Handler mHandler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_welcome_act);
+        setContentView(R.layout.activity_welcome);
         init();
     }
 
@@ -32,19 +29,13 @@ public class WelcomeActivity extends Activity {
             int curVersionCode = pi.versionCode;
             int oldVersionCode = SharePreferencesUtil.getInstance().getVersionCode();
             if (curVersionCode != oldVersionCode) {
-
+                //更新了应用
+                SharePreferencesUtil.getInstance().setVersionCode(curVersionCode);
             }
-
-            sdBg = (SimpleDraweeView) findViewById(R.id.welcome_bg);
-//            ImageLoader.getInstance().displayImage(sdBg, Constants.BASE_IP + "hms/static/images/welcome.png");
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         } finally {
-            if (SharePreferencesUtil.getInstance().isLogin()) {
-                toActvity(MainActivity.class);
-            } else {
-                toActvity(LoginActivity.class);
-            }
+            toActvity(MainActivity.class);
         }
     }
 

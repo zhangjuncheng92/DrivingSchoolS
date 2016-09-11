@@ -19,6 +19,7 @@ import com.mobo.mobolibrary.util.image.ImageLoader;
 import com.zjc.drivingSchoolS.R;
 import com.zjc.drivingSchoolS.db.SharePreferences.SharePreferencesUtil;
 import com.zjc.drivingSchoolS.db.models.UserInfo;
+import com.zjc.drivingSchoolS.eventbus.MainLogoutEvent;
 import com.zjc.drivingSchoolS.jpush.JPushUtil;
 import com.zjc.drivingSchoolS.ui.apply.ApplyActivity;
 import com.zjc.drivingSchoolS.ui.collect.TeacherManagerActivity;
@@ -27,6 +28,8 @@ import com.zjc.drivingSchoolS.ui.notification.NotificationActivity;
 import com.zjc.drivingSchoolS.ui.order.OrderManagerActivity;
 import com.zjc.drivingSchoolS.ui.personal.PersonalActivity;
 import com.zjc.drivingSchoolS.utils.Constants;
+
+import de.greenrobot.event.EventBus;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
     private Toolbar toolbar;
@@ -38,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
         setContentView(R.layout.activity_main);
 
         initToolBar();
@@ -171,5 +175,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(intent);
         this.finish();
+    }
+
+    /**
+     * 登出
+     *
+     * @param event
+     */
+    public void onEventMainThread(MainLogoutEvent event) {
+        logout();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

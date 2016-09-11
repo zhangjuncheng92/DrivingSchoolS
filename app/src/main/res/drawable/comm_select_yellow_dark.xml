@@ -3,14 +3,14 @@
 
     <item android:state_pressed="true">
         <shape android:shape="rectangle">
-            <gradient android:endColor="@color/google_yellow" android:startColor="@color/google_yellow" />
+            <gradient android:endColor="#BE9850" android:startColor="#BE9850" />
 
             <corners android:radius="@dimen/layout_margin_lss" />
         </shape>
     </item>
     <item android:state_pressed="false">
         <shape>
-            <gradient android:endColor="@color/comm_orange" android:startColor="@color/comm_orange" />
+            <gradient android:endColor="@color/colorPrimaryDark" android:startColor="@color/colorPrimaryDark" />
             <corners android:radius="@dimen/layout_margin_lss" />
         </shape>
     </item>

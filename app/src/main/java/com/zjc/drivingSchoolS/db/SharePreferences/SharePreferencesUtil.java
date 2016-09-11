@@ -10,10 +10,13 @@ import com.zjc.drivingSchoolS.app.MApp;
 import com.zjc.drivingSchoolS.db.model.City;
 import com.zjc.drivingSchoolS.db.model.NotificationTypeModel;
 import com.zjc.drivingSchoolS.db.models.UserInfo;
+import com.zjc.drivingSchoolS.eventbus.MainLogoutEvent;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by Administrator on 2015/7/24.
@@ -54,6 +57,7 @@ public class SharePreferencesUtil {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplication());
         return sp.getString("phone", "");
     }
+
     public void setLogin(boolean isLogin) {
         Util.writePreferences(getApplication(), "login", isLogin);
     }
@@ -87,7 +91,9 @@ public class SharePreferencesUtil {
                 userInfo = (UserInfo) SerializableUtil.str2Obj(string2obj);
             } catch (IOException e) {
                 e.printStackTrace();
+                EventBus.getDefault().post(new MainLogoutEvent());
                 return userInfo;
+            } finally {
             }
         }
         return userInfo;
@@ -183,28 +189,9 @@ public class SharePreferencesUtil {
         Util.writePreferences(getApplication(), "versionCode", versionCode);
     }
 
-    /**
-     * 得到医院id
-     *
-     * @return
-     */
-    public int getHospitalId() {
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplication());
-        return sp.getInt("hospitalId", -1);
-    }
-
-    /**
-     * 保存医院ID，为了在挂号医生详情里面传id
-     *
-     * @param hospitalId
-     */
-    public void setHospitalId(int hospitalId) {
-        Util.writePreferences(getApplication(), "hospitalId", hospitalId);
-    }
-
 
     public City readCity() {
-        City city = new City();
+        City city = null;
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplication());
         String string2obj = sp.getString("city", "");
         if (!TextUtils.isEmpty(string2obj)) {
