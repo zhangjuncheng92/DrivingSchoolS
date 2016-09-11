@@ -21,13 +21,12 @@ import com.zjc.drivingSchoolS.api.ResultResponseHandler;
 import com.zjc.drivingSchoolS.db.SharePreferences.SharePreferencesUtil;
 import com.zjc.drivingSchoolS.db.model.JPushNotification;
 import com.zjc.drivingSchoolS.db.model.MessageItem;
-import com.zjc.drivingSchoolS.db.parser.JPushNotificationParser;
 import com.zjc.drivingSchoolS.db.parser.MessageListResponseParser;
 import com.zjc.drivingSchoolS.db.response.MessageListResponse;
 import com.zjc.drivingSchoolS.eventbus.JPushNotificationStateEvent;
 import com.zjc.drivingSchoolS.eventbus.JpushNotificationEvent;
 import com.zjc.drivingSchoolS.ui.login.LoginActivity;
-import com.zjc.drivingSchoolS.ui.notification.adapter.NotificationsTypeAdapter;
+import com.zjc.drivingSchoolS.ui.notification.adapter.NotificationsItemAdapter;
 import com.zjc.drivingSchoolS.utils.ConstantsParams;
 
 import de.greenrobot.event.EventBus;
@@ -39,7 +38,7 @@ import de.greenrobot.event.EventBus;
  * @description 转诊单通知
  */
 public class NotificationReferralFrg extends ZBaseToolBarFragment implements ZBaseRecyclerViewAdapter.OnItemClickListener, ZBaseRecyclerViewAdapter.OnItemLongClickListener, ZBaseRecyclerViewAdapter.OnLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
-    private NotificationsTypeAdapter mAdapter;
+    private NotificationsItemAdapter mAdapter;
     private EasyRecyclerView mRecyclerView;
     private MessageItem messageItem;
 
@@ -73,7 +72,7 @@ public class NotificationReferralFrg extends ZBaseToolBarFragment implements ZBa
     }
 
     private void initAdapter() {
-        mAdapter = new NotificationsTypeAdapter(getActivity());
+        mAdapter = new NotificationsItemAdapter(getActivity());
         mAdapter.setOnItemClickLitener(this);
         mAdapter.setOnItemLongClickListener(this);
         mAdapter.setMore(R.layout.view_more, this);

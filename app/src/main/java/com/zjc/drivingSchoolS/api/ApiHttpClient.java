@@ -1,5 +1,6 @@
 package com.zjc.drivingSchoolS.api;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -338,6 +339,29 @@ public class ApiHttpClient {
         JsonObject postRequest = new JsonObject();
         postRequest.addProperty("uid", uid);
         HttpUtilsAsync.post(Constants.BASE_URL + "message/noread", postRequest, asyncHttpResponseHandler);
+    }
+
+    /**
+     * 1.1.31 获取消息详情
+     * 调用示例： /app/student/message/detail
+     */
+    public void getNoticeDetail(String uid, String mid, AsyncHttpResponseHandler asyncHttpResponseHandler) {
+        JsonObject postRequest = new JsonObject();
+        postRequest.addProperty("uid", uid);
+        postRequest.addProperty("mid", mid);
+        HttpUtilsAsync.post(Constants.BASE_URL + "message/detail", postRequest, asyncHttpResponseHandler);
+    }
+
+    /**
+     * 1.1.31 删除消息
+     * 调用示例：  /app/student/message/delete
+     */
+    public void deleteNotice(String uid, JsonArray mids, AsyncHttpResponseHandler asyncHttpResponseHandler) {
+        JsonObject postRequest = new JsonObject();
+        postRequest.addProperty("uid", uid);
+        postRequest.add("mids", mids);
+        postRequest.addProperty("rule", "id");
+        HttpUtilsAsync.post(Constants.BASE_URL + "message/delete", postRequest, asyncHttpResponseHandler);
     }
 
 
