@@ -13,9 +13,13 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mobo.mobolibrary.R;
 import com.mobo.mobolibrary.app.BaseApplication;
 
 import java.lang.reflect.Method;
@@ -156,20 +160,18 @@ public class Util {
      *
      * @param context Context
      * @param msg     文本
-     * @param params  如果需要设置样式,放置在这里
      * @return
      */
-    public static ProgressDialog showProgressDialog(Context context, String msg, int... params) {
-        int style = ProgressDialog.STYLE_SPINNER;
-        try {
-            style = params[0];
-        } catch (Exception e) {
-        }
+    public static ProgressDialog showProgressDialog(Context context, String msg) {
         final ProgressDialog pd = new ProgressDialog(context);
         pd.setMessage(msg);
-        pd.setProgressStyle(style);
         pd.setCanceledOnTouchOutside(false);
         pd.show();
+
+        View view = LayoutInflater.from(context).inflate(R.layout.comm_loading_view, null);
+        TextView tvMessage = (TextView) view.findViewById(R.id.tv_message);
+        tvMessage.setText(msg);
+        pd.setContentView(view);
         return pd;
     }
 
@@ -212,11 +214,10 @@ public class Util {
      *
      * @param context Context
      * @param resId   文本ID
-     * @param params  如果需要设置样式,放置在这里
      * @return
      */
-    public static ProgressDialog showProgressDialog(Context context, int resId, int... params) {
-        return showProgressDialog(context, context.getString(resId), params);
+    public static ProgressDialog showProgressDialog(Context context, int resId) {
+        return showProgressDialog(context, context.getString(resId));
     }
 
     /**
@@ -421,7 +422,7 @@ public class Util {
     public static String getPhotoFileName(String tag) {
         Date date = new Date(System.currentTimeMillis());
         SimpleDateFormat dateFormat = new SimpleDateFormat("'IMG'_yyyyMMdd_HHmmss");
-        return dateFormat.format(date) + "_" + tag+ ".jpg";
+        return dateFormat.format(date) + "_" + tag + ".jpg";
     }
 
 

@@ -59,7 +59,7 @@ public class StudyHistoryAdapter extends ZBaseRecyclerViewAdapter {
             mTvName.setText(service.getTitle());
             mTvNumber.setText(service.getOrderid());
             mTvTime.setText(service.getStarttime());
-            mTvMoney.setText(service.getTotal() + "");
+            mTvMoney.setText(service.getTotal() + "元");
             mTvStatus.setText(ConstantsParams.getStatus(service.getState()));
             //	1.预订成功 2.已支付 3.申请退订 4.已退订 5.消费中 6.培训完成 7.待评价 8.已完成 9.已取消
             if (service.getState().equals(ConstantsParams.STUDY_ORDER_THREE)) {

@@ -25,7 +25,7 @@
     <string name="personal_title">个人中心</string>
     <string name="personal_detail_title">个人信息</string>
     <string name="personal_detail_icon">图像</string>
-    <string name="personal_detail_sex">驾校联系人</string>
+    <string name="personal_contact">驾校联系人</string>
     <string name="personal_detail_name">驾校名称</string>
     <string name="personal_detail_desc">简介</string>
     <string name="personal_detail_phone">联系电话</string>

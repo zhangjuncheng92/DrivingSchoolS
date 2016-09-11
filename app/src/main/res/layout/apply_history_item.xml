@@ -1,52 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/comm_layout_three"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/order_name"
+            style="@style/comm_title_gray"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20dp" />
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/order_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true" />
+            android:layout_centerVertical="true"
+            android:textColor="@color/comm_text" />
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="@dimen/layout_margin_ls">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <TextView
-                style="@style/comm_body_gary"
+                android:id="@+id/order_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="订单编号:" />
-
-            <TextView
-                android:id="@+id/order_number"
-                style="@style/comm_body_gary"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:textColor="@color/comm_subtitle" />
         </LinearLayout>
 
         <LinearLayout
@@ -54,49 +45,45 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:layout_marginTop="@dimen/layout_margin_lss"
             android:orientation="horizontal">
 
 
             <TextView
                 android:id="@+id/order_time"
-                style="@style/comm_body_gary"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textColor="@color/comm_subtitle" />
         </LinearLayout>
     </RelativeLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:background="@color/gray" />
+    <View
+        style="@style/line_horStyle_three"
+        android:layout_marginTop="@dimen/layout_margin_lss" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="@dimen/layout_margin_l">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true">
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="金额"
-                android:textColor="@color/gray" />
+                android:textColor="@color/comm_text" />
 
             <TextView
                 android:id="@+id/order_money"
+                style="@style/comm_title_orange"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:textColor="@color/comm_red"
-                android:textSize="20dp" />
+                android:layout_marginLeft="@dimen/layout_margin_ls" />
         </LinearLayout>
 
         <LinearLayout
@@ -107,32 +94,16 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/order_pay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/comm_select_orange"
-                android:padding="@dimen/layout_margin_l"
-                android:text="在线支付"
-                android:textColor="@color/white" />
-
-
-            <TextView
                 android:id="@+id/order_cancel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/comm_select_orange"
-                android:padding="@dimen/layout_margin_l"
+                style="@style/study_order_item_button"
                 android:text="取消订单"
-                android:textColor="@color/comm_white" />
+                android:visibility="gone" />
 
             <TextView
-                android:id="@+id/order_disagree"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/comm_select_orange"
-                android:padding="@dimen/layout_margin_l"
+                android:id="@+id/order_assess"
+                style="@style/study_order_item_button"
                 android:text="预约体检"
-                android:textColor="@color/comm_white" />
+                android:visibility="gone" />
         </LinearLayout>
     </RelativeLayout>
 

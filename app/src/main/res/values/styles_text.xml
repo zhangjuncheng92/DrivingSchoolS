@@ -41,8 +41,8 @@
         <item name="android:textSize">@dimen/text_size_subtitle</item>
     </style>
 
-    <style name="comm_subtitle_gary">
-        <item name="android:textColor">@color/comm_gary</item>
+    <style name="comm_subtitle_gray">
+        <item name="android:textColor">@color/comm_subtitle</item>
         <item name="android:textSize">@dimen/text_size_subtitle</item>
     </style>
 
@@ -163,19 +163,28 @@
     </style>
 
 
-    <style name="personal_title_text">
-        <item name="android:padding">@dimen/layout_padding_l</item>
+    <!-- 个人中心-->
+    <style name="personal_frg_title">
+        <item name="android:textColor">@color/comm_text</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center_vertical</item>
-        <item name="android:drawablePadding">@dimen/layout_padding_l</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:paddingRight">@dimen/layout_padding_ls</item>
+        <item name="android:paddingLeft">@dimen/layout_padding_m</item>
+        <item name="android:paddingTop">@dimen/layout_padding_l</item>
+        <item name="android:paddingBottom">@dimen/layout_padding_l</item>
     </style>
 
-    <style name="personal_info_text" parent="comm_subtitle_black">
-        <item name="android:gravity">right</item>
-        <item name="android:padding">@dimen/layout_padding_l</item>
+    <style name="personal_frg_content">
+        <item name="android:textColor">@color/comm_subtitle</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">right|center_vertical</item>
+        <item name="android:paddingRight">@dimen/layout_padding_m</item>
+        <item name="android:paddingTop">@dimen/layout_padding_l</item>
+        <item name="android:paddingBottom">@dimen/layout_padding_l</item>
+        <item name="android:singleLine">true</item>
         <item name="android:background">@color/transparent</item>
     </style>
 

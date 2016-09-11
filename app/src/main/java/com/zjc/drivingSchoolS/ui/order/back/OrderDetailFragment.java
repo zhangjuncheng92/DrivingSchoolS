@@ -1,4 +1,4 @@
-package com.zjc.drivingSchoolS.ui.order;
+package com.zjc.drivingSchoolS.ui.order.back;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -73,7 +73,7 @@ public class OrderDetailFragment extends ZBaseToolBarFragment {
 
     @Override
     protected int inflateContentView() {
-        return R.layout.order_detail_frg;
+        return R.layout.study_detail_frg;
     }
 
     @Override
@@ -90,7 +90,6 @@ public class OrderDetailFragment extends ZBaseToolBarFragment {
 //        iconStatus = (ImageView) rootView.findViewById(R.id.registration_detail_frg_icon_status);
         tvStatus = (TextView) rootView.findViewById(R.id.order_detail_frg_tv_status);
         tvSubject = (TextView) rootView.findViewById(R.id.order_detail_frg_tv_subject);
-        tvCart = (TextView) rootView.findViewById(R.id.order_detail_frg_tv_cart);
         tvLength = (TextView) rootView.findViewById(R.id.order_detail_frg_tv_length);
         tvFee = (TextView) rootView.findViewById(R.id.order_detail_frg_tv_fee);
 

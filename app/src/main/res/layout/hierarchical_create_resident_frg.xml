@@ -50,7 +50,7 @@
                 android:id="@+id/tv_sex"
                 style="@style/personal_detail_title"
                 android:drawableLeft="@drawable/icon_sex"
-                android:text="@string/personal_detail_sex" />
+                android:text="@string/personal_contact" />
 
             <RelativeLayout
                 android:id="@+id/login_main_frg_rl_hospital"

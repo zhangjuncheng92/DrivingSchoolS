@@ -12,13 +12,11 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content">
 
             <TextView
-                style="@style/personal_title_text"
+                style="@style/personal_frg_title"
                 android:layout_centerVertical="true"
-                android:drawableLeft="@drawable/icon_name"
                 android:text="@string/personal_detail_icon" />
 
             <com.facebook.drawee.view.SimpleDraweeView
@@ -27,7 +25,9 @@
                 android:layout_height="48dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_margin="@dimen/layout_margin_ls"
+                android:layout_marginBottom="@dimen/layout_margin_ls"
+                android:layout_marginRight="@dimen/layout_margin_m"
+                android:layout_marginTop="@dimen/layout_margin_ls"
                 fresco:actualImageScaleType="focusCrop"
                 fresco:placeholderImageScaleType="fitCenter"
                 fresco:roundAsCircle="true"
@@ -36,9 +36,7 @@
                 fresco:roundingBorderWidth="1dp" />
         </RelativeLayout>
 
-        <View
-            style="@style/line_horStyle"
-            android:layout_marginLeft="@dimen/layout_margin_l" />
+        <View style="@style/line_horStyle" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -46,20 +44,16 @@
             android:orientation="horizontal">
 
             <TextView
-                style="@style/personal_title_text"
-                android:drawableLeft="@drawable/icon_name"
+                style="@style/personal_frg_title"
                 android:text="@string/personal_detail_name" />
 
             <EditText
                 android:id="@+id/personal_frg_tv_school_name"
-                style="@style/personal_info_text"
+                style="@style/personal_frg_content"
                 android:maxLength="10" />
-
         </LinearLayout>
 
-        <View
-            style="@style/line_horStyle"
-            android:layout_marginLeft="@dimen/layout_margin_l" />
+        <View style="@style/line_horStyle" />
 
 
         <LinearLayout
@@ -68,19 +62,16 @@
             android:orientation="horizontal">
 
             <TextView
-                style="@style/personal_title_text"
-                android:drawableLeft="@drawable/icon_name"
-                android:text="@string/personal_detail_sex" />
+                style="@style/personal_frg_title"
+                android:text="@string/personal_contact" />
 
             <EditText
                 android:id="@+id/personal_frg_tv_name"
-                style="@style/personal_info_text" />
+                style="@style/personal_frg_content" />
 
         </LinearLayout>
 
-        <View
-            style="@style/line_horStyle"
-            android:layout_marginLeft="@dimen/layout_margin_l" />
+        <View style="@style/line_horStyle" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -88,13 +79,12 @@
             android:orientation="horizontal">
 
             <TextView
-                style="@style/personal_title_text"
-                android:drawableLeft="@drawable/icon_name"
+                style="@style/personal_frg_title"
                 android:text="@string/personal_detail_phone" />
 
             <EditText
                 android:id="@+id/personal_frg_tv_phone"
-                style="@style/personal_info_text"
+                style="@style/personal_frg_content"
                 android:inputType="phone"
                 android:maxLength="11" />
 
@@ -111,20 +101,16 @@
             android:orientation="horizontal">
 
             <TextView
-                style="@style/personal_title_text"
-                android:drawableLeft="@drawable/icon_name"
+                style="@style/personal_frg_title"
                 android:text="@string/personal_detail_address" />
 
             <EditText
                 android:id="@+id/personal_frg_tv_address"
-                style="@style/personal_info_text"
+                style="@style/personal_frg_content"
                 android:singleLine="true" />
-
         </LinearLayout>
 
-        <View
-            style="@style/line_horStyle"
-            android:layout_marginLeft="@dimen/layout_margin_l" />
+        <View style="@style/line_horStyle" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -132,24 +118,21 @@
             android:orientation="horizontal">
 
             <TextView
-                style="@style/personal_title_text"
-                android:drawableLeft="@drawable/icon_name"
+                style="@style/personal_frg_title"
                 android:text="@string/personal_detail_lat" />
 
             <TextView
                 android:id="@+id/personal_frg_tv_lat"
-                style="@style/comm_subtitle_blue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="right"
                 android:padding="@dimen/layout_padding_l"
-                android:text="更新" />
+                android:text="更新位置"
+                android:textColor="@color/colorPrimaryDark" />
 
         </LinearLayout>
 
-        <View
-            style="@style/line_horStyle"
-            android:layout_marginLeft="@dimen/layout_margin_l" />
+        <View style="@style/line_horStyle" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -157,22 +140,14 @@
             android:orientation="horizontal">
 
             <TextView
-                style="@style/personal_title_text"
-                android:drawableLeft="@drawable/icon_name"
+                style="@style/personal_frg_title"
                 android:text="@string/personal_detail_desc" />
 
             <EditText
                 android:id="@+id/personal_frg_tv_desc"
-                style="@style/personal_info_text"
-                android:digits="0123456789xyzXYZ"
-                android:inputType="number"
-                android:maxLength="18" />
+                style="@style/personal_frg_content" />
 
         </LinearLayout>
-
-        <View
-            style="@style/line_horStyle"
-            android:layout_marginLeft="@dimen/layout_margin_l" />
 
         <View style="@style/line_horStyle" />
     </LinearLayout>

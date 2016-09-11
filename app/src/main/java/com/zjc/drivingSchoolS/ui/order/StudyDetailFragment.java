@@ -1,6 +1,8 @@
 package com.zjc.drivingSchoolS.ui.order;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,7 +35,8 @@ public class StudyDetailFragment extends ZBaseToolBarFragment implements View.On
     private TextView tvStatus;
 
     private TextView tvSubject;
-    private TextView tvCart;
+    private TextView tvCouponFee;
+    private TextView tvPayFee;
     private TextView tvStudent;
     private TextView tvLength;
     private TextView tvStudentPhone;
@@ -43,6 +46,9 @@ public class StudyDetailFragment extends ZBaseToolBarFragment implements View.On
     private TextView tvEndTime;
     private TextView tvSchool;
     private TextView tvTeacher;
+    private TextView tvSchoolCollect;
+    private TextView tvTeacherCollect;
+    private TextView tvAssess;
 
     private TextView tvOrderNo;
     private TextView tvOrderTime;
@@ -90,7 +96,8 @@ public class StudyDetailFragment extends ZBaseToolBarFragment implements View.On
     private void initView() {
         tvStatus = (TextView) rootView.findViewById(R.id.order_detail_frg_tv_status);
         tvSubject = (TextView) rootView.findViewById(R.id.order_detail_frg_tv_subject);
-        tvCart = (TextView) rootView.findViewById(R.id.order_detail_frg_tv_cart);
+        tvCouponFee = (TextView) rootView.findViewById(R.id.order_detail_frg_tv_couponfee);
+        tvPayFee = (TextView) rootView.findViewById(R.id.order_detail_frg_tv_payfee);
         tvLength = (TextView) rootView.findViewById(R.id.order_detail_frg_tv_length);
         tvFee = (TextView) rootView.findViewById(R.id.order_detail_frg_tv_fee);
 
@@ -101,9 +108,17 @@ public class StudyDetailFragment extends ZBaseToolBarFragment implements View.On
         tvEndTime = (TextView) rootView.findViewById(R.id.order_detail_frg_tv_end_time);
         tvSchool = (TextView) rootView.findViewById(R.id.order_detail_frg_tv_school);
         tvTeacher = (TextView) rootView.findViewById(R.id.order_detail_frg_tv_teacher);
+        tvSchoolCollect = (TextView) rootView.findViewById(R.id.order_detail_frg_tv_school_collect);
+        tvTeacherCollect = (TextView) rootView.findViewById(R.id.order_detail_frg_tv_teacher_collect);
+        tvAssess = (TextView) rootView.findViewById(R.id.order_detail_frg_tv_assess);
 
         tvOrderNo = (TextView) rootView.findViewById(R.id.order_detail_frg_tv_NO);
         tvOrderTime = (TextView) rootView.findViewById(R.id.order_detail_frg_tv_order_time);
+
+
+        tvAssess.setOnClickListener(this);
+        tvSchoolCollect.setOnClickListener(this);
+        tvTeacherCollect.setOnClickListener(this);
     }
 
     private void getDetailById() {
@@ -116,6 +131,7 @@ public class StudyDetailFragment extends ZBaseToolBarFragment implements View.On
         });
     }
 
+
     private void setTextView(TextView textView, String text) {
         if (TextUtils.isEmpty(text)) {
             textView.setText("");
@@ -127,13 +143,48 @@ public class StudyDetailFragment extends ZBaseToolBarFragment implements View.On
     private void setInfo() {
         tvStatus.setText(ConstantsParams.getStatus(orderDetail.getState()));
 
-        setTextView(tvCart, orderDetail.getCarsname());
         setTextView(tvSubject, orderDetail.getSubjectname());
         setTextView(tvLength, orderDetail.getNumber() + "");
-        tvFee.setText(orderDetail.getTotal() + "");
+        tvFee.setText(orderDetail.getTotal() + "元");
+        tvCouponFee.setText(orderDetail.getDiscount() + "元");
+        tvPayFee.setText(orderDetail.getPayment() + "元");
 
         setTextView(tvStudent, orderDetail.getContactsname());
         setTextView(tvStudentPhone, orderDetail.getContactsphone());
+
+        //	1.预订成功 2.已支付 3.申请退订 4.已退订 5.消费中 6.培训完成 7.待评价 8.已完成 9.已取消
+        if (orderDetail.getState().equals(ConstantsParams.STUDY_ORDER_ONE)) {
+
+        } else if (orderDetail.getState().equals(ConstantsParams.STUDY_ORDER_TWO) || orderDetail.getState().equals(ConstantsParams.STUDY_ORDER_THREE) || orderDetail.getState().equals(ConstantsParams.STUDY_ORDER_FOUR)) {
+            //已接单
+            ((View) tvSchool.getParent().getParent()).setVisibility(View.VISIBLE);
+            ((View) tvTeacher.getParent().getParent()).setVisibility(View.VISIBLE);
+
+            //退订状态，显示退订时间
+            if (orderDetail.getState().equals(ConstantsParams.STUDY_ORDER_FOUR)) {
+                TextView tvCancelTime = (TextView) rootView.findViewById(R.id.order_detail_frg_tv_unsubscribe_time);
+                setTextView(tvCancelTime, orderDetail.getRefundtime());
+                ((View) tvCancelTime.getParent().getParent()).setVisibility(View.VISIBLE);
+            }
+        } else if (orderDetail.getState().equals(ConstantsParams.STUDY_ORDER_FIVE) || orderDetail.getState().equals(ConstantsParams.STUDY_ORDER_SIX)
+                || orderDetail.getState().equals(ConstantsParams.STUDY_ORDER_SEVEN) || orderDetail.getState().equals(ConstantsParams.STUDY_ORDER_EIGHT)) {
+            //已开始练车
+            ((View) tvStartTime.getParent().getParent()).setVisibility(View.VISIBLE);
+            ((View) tvEndTime.getParent().getParent()).setVisibility(View.VISIBLE);
+            ((View) tvSchool.getParent().getParent()).setVisibility(View.VISIBLE);
+            ((View) tvTeacher.getParent().getParent()).setVisibility(View.VISIBLE);
+
+            //显示评价
+            if (orderDetail.getState().equals(ConstantsParams.STUDY_ORDER_EIGHT)) {
+                ((View) tvAssess.getParent().getParent()).setVisibility(View.VISIBLE);
+            }
+        } else if (orderDetail.getState().equals(ConstantsParams.STUDY_ORDER_NINE)) {
+            //已取消
+            TextView tvCancelTime = (TextView) rootView.findViewById(R.id.order_detail_frg_tv_cancel_time);
+            setTextView(tvCancelTime, orderDetail.getCanceltime());
+            ((View) tvCancelTime.getParent().getParent()).setVisibility(View.VISIBLE);
+        } else {
+        }
         setTextView(tvStartTime, orderDetail.getStarttime());
         setTextView(tvEndTime, orderDetail.getEndtime());
         setTextView(tvSchool, orderDetail.getSname());
@@ -143,8 +194,32 @@ public class StudyDetailFragment extends ZBaseToolBarFragment implements View.On
         setTextView(tvOrderTime, orderDetail.getOrdertime());
     }
 
+
+    private void showCancelDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("温馨提示");
+        builder.setMessage("是否确定取消预约单？");
+        builder.setNegativeButton("确认",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                    }
+                });
+        builder.setPositiveButton("取消",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        dialog.dismiss();
+                    }
+                });
+        builder.show();
+    }
+
     @Override
     public void onClick(View view) {
         int i = view.getId();
+        if (i == R.id.order_detail_frg_tv_assess) {
+            //点击已评价
+//            StudyAssessResultFrg frg = StudyAssessResultFrg.newInstance(orderDetail);
+//            replaceFrg(frg, null);
+        }
     }
 }

@@ -49,38 +49,35 @@ public class ApplyHistoryAdapter extends ZBaseRecyclerViewAdapter {
 
         @Override
         public void setData(OrderItem service) {
-            if (service == null) {
-                return;
-            }
             mTvName.setText(service.getTitle());
             mTvNumber.setText(service.getOrderid());
             mTvTime.setText(service.getStarttime());
-            mTvMoney.setText(service.getTotal() + "");
+            mTvMoney.setText(service.getTotal() + "元");
             mTvStatus.setText(service.getState());
 
             mTvStatus.setText(ConstantsParams.getStatus(service.getState()));
             //	1.预订成功 2.已支付 3.申请退订 4.已退订 5.消费中 6.已消费 7.待评价 8.已完成 9.已取消
-            if (service.getState().equals(ConstantsParams.STUDY_ORDER_ONE)) {
-                mTvPay.setVisibility(View.GONE);
-                mTvCancel.setVisibility(View.GONE);
-                mTvDiscuss.setVisibility(View.GONE);
-            } else if (service.getState().equals(ConstantsParams.STUDY_ORDER_TWO)) {
-                mTvPay.setVisibility(View.GONE);
-                mTvCancel.setVisibility(View.GONE);
-                mTvDiscuss.setVisibility(View.VISIBLE);
-            } else if (service.getState().equals(ConstantsParams.STUDY_ORDER_SEVEN)) {
-                mTvPay.setVisibility(View.GONE);
-                mTvCancel.setVisibility(View.GONE);
-                mTvDiscuss.setVisibility(View.VISIBLE);
-            } else {
-                mTvPay.setVisibility(View.GONE);
-                mTvCancel.setVisibility(View.GONE);
-                mTvDiscuss.setVisibility(View.GONE);
-            }
-
-            mTvPay.setVisibility(View.GONE);
-            mTvCancel.setVisibility(View.GONE);
-            mTvDiscuss.setVisibility(View.GONE);
+//            if (service.getState().equals(ConstantsParams.STUDY_ORDER_ONE)) {
+//                mTvPay.setVisibility(View.GONE);
+//                mTvCancel.setVisibility(View.GONE);
+//                mTvDiscuss.setVisibility(View.GONE);
+//            } else if (service.getState().equals(ConstantsParams.STUDY_ORDER_TWO)) {
+//                mTvPay.setVisibility(View.GONE);
+//                mTvCancel.setVisibility(View.GONE);
+//                mTvDiscuss.setVisibility(View.VISIBLE);
+//            } else if (service.getState().equals(ConstantsParams.STUDY_ORDER_SEVEN)) {
+//                mTvPay.setVisibility(View.GONE);
+//                mTvCancel.setVisibility(View.GONE);
+//                mTvDiscuss.setVisibility(View.VISIBLE);
+//            } else {
+//                mTvPay.setVisibility(View.GONE);
+//                mTvCancel.setVisibility(View.GONE);
+//                mTvDiscuss.setVisibility(View.GONE);
+//            }
+//
+//            mTvPay.setVisibility(View.GONE);
+//            mTvCancel.setVisibility(View.GONE);
+//            mTvDiscuss.setVisibility(View.GONE);
 
 //            mTvDiscuss.setTag(service);
 //            mTvDiscuss.setOnClickListener(new OrderOnClickListener());

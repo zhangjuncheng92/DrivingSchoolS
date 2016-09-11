@@ -19,9 +19,8 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    style="@style/personal_title_text"
+                    style="@style/personal_frg_title"
                     android:layout_centerVertical="true"
-                    android:drawableLeft="@drawable/icon_name"
                     android:text="照片" />
 
                 <com.facebook.drawee.view.SimpleDraweeView
@@ -49,13 +48,12 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    style="@style/personal_title_text"
-                    android:drawableLeft="@drawable/icon_name"
+                    style="@style/personal_frg_title"
                     android:text="教练名称" />
 
                 <TextView
                     android:id="@+id/collect_detail_name"
-                    style="@style/personal_info_text" />
+                    style="@style/personal_frg_content" />
 
             </LinearLayout>
 
@@ -70,13 +68,12 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    style="@style/personal_title_text"
-                    android:drawableLeft="@drawable/icon_name"
-                    android:text="@string/personal_detail_sex" />
+                    style="@style/personal_frg_title"
+                    android:text="性别" />
 
                 <TextView
                     android:id="@+id/collect_detail_sex"
-                    style="@style/personal_info_text" />
+                    style="@style/personal_frg_content" />
 
             </LinearLayout>
 
@@ -91,13 +88,12 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    style="@style/personal_title_text"
-                    android:drawableLeft="@drawable/icon_name"
+                    style="@style/personal_frg_title"
                     android:text="执教年龄" />
 
                 <TextView
                     android:id="@+id/collect_detail_age"
-                    style="@style/personal_info_text" />
+                    style="@style/personal_frg_content" />
 
             </LinearLayout>
 
@@ -111,13 +107,12 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    style="@style/personal_title_text"
-                    android:drawableLeft="@drawable/icon_name"
+                    style="@style/personal_frg_title"
                     android:text="所属驾校" />
 
                 <TextView
                     android:id="@+id/collect_detail_schoolname"
-                    style="@style/personal_info_text" />
+                    style="@style/personal_frg_content" />
 
             </LinearLayout>
 
@@ -130,18 +125,17 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    style="@style/personal_title_text"
-                    android:drawableLeft="@drawable/icon_name"
+                    style="@style/personal_frg_title"
                     android:text="星级" />
 
                 <RatingBar
                     android:id="@+id/assess_detail_list_rb_score"
-                    style="@style/rating_bar_small"
+                    style="@style/Widget.AppCompat.RatingBar.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="@dimen/layout_margin_m"
                     android:numStars="5"
                     android:rating="5"
                     android:stepSize="0.1" />
@@ -158,13 +152,13 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    style="@style/personal_title_text"
-                    android:drawableLeft="@drawable/icon_name"
+                    style="@style/personal_frg_title"
                     android:text="联系电话" />
 
                 <TextView
                     android:id="@+id/collect_detail_telephone"
-                    style="@style/personal_info_text" />
+                    style="@style/personal_frg_content"
+                    android:textColor="@color/colorPrimaryDark" />
 
             </LinearLayout>
 
@@ -178,13 +172,12 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    style="@style/personal_title_text"
-                    android:drawableLeft="@drawable/icon_name"
-                    android:text="描述" />
+                    style="@style/personal_frg_title"
+                    android:text="简介" />
 
                 <TextView
                     android:id="@+id/collect_detail_des"
-                    style="@style/personal_info_text" />
+                    style="@style/personal_frg_content" />
 
             </LinearLayout>
 

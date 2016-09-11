@@ -84,7 +84,7 @@ public class PersonalFragment extends ZBaseToolBarFragment implements View.OnCli
                 String phone = tvPhone.getEditableText().toString().trim();
                 String desc = tvDesc.getEditableText().toString().trim();
 
-                if (TextUtils.isEmpty(schoolName) || TextUtils.isEmpty(name) || TextUtils.isEmpty(address) || TextUtils.isEmpty(phone) || TextUtils.isEmpty(desc)) {
+                if (TextUtils.isEmpty(schoolName) || TextUtils.isEmpty(name) || TextUtils.isEmpty(address) || TextUtils.isEmpty(phone)) {
                     Util.showCustomMsg("请输入完整信息");
                     return true;
                 }
