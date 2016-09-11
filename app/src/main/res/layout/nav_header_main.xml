@@ -3,14 +3,39 @@
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+    android:orientation="vertical">
 
-    <RelativeLayout
+    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="?attr/colorPrimary"
+        android:minHeight="48dp"
+        tools:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        tools:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:singleLine="true"
+            android:text="@string/personal_title" />
+    </android.support.v7.widget.Toolbar>
+
+    <View style="@style/line_horStyle_two" />
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:fresco="http://schemas.android.com/apk/res-auto"
         android:id="@+id/personal_main_frg_rl_detail"
         style="@style/comm_layout_four"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:onClick="HeaderViewOnClick"
+        android:paddingBottom="@dimen/layout_padding_m"
+        android:paddingTop="@dimen/layout_padding_m">
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/personal_main_frg_sd_icon"
@@ -37,36 +62,93 @@
                 style="@style/comm_title_black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
+                android:hint="@string/personal_detail_name"
                 android:singleLine="true" />
 
             <TextView
-                android:id="@+id/personal_main_frg_tv_organization"
-                style="@style/comm_body_gary"
+                android:id="@+id/personal_main_frg_tv_no"
+                style="@style/comm_ten_gary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/personal_main_frg_tv_name"
+                android:layout_marginTop="@dimen/layout_margin_lss"
                 android:singleLine="true" />
 
-            <TextView
-                android:id="@+id/personal_main_frg_tv_role"
-                style="@style/comm_body_gary"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/personal_main_frg_tv_organization" />
-
-            <TextView
-                android:id="@+id/personal_main_frg_tv_code"
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:background="@drawable/comm_label_pink"
-                android:singleLine="true"
-                android:text="二维码"
-                android:visibility="gone" />
+                android:src="@drawable/icon_arrow_right" />
         </RelativeLayout>
 
     </RelativeLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+
+            android:id="@+id/main_action_apply_history"
+            style="@style/personal_item_text"
+            android:drawableLeft="@drawable/icon_apply_history"
+            android:text="@string/title_apply_history" />
+
+        <View style="@style/line_horStyle" />
+
+
+        <TextView
+            android:id="@+id/main_action_history"
+            style="@style/personal_item_text"
+            android:drawableLeft="@drawable/icon_study_history"
+            android:text="@string/title_study_history" />
+
+        <View style="@style/line_horStyle" />
+
+        <TextView
+            android:id="@+id/main_action_teacher"
+            style="@style/personal_item_text"
+            android:drawableLeft="@drawable/icon_collect"
+            android:text="@string/title_teacher" />
+
+        <View style="@style/line_horStyle" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/main_action_notice"
+                style="@style/personal_item_text"
+                android:drawableLeft="@drawable/icon_notice"
+                android:text="@string/title_notice" />
+
+            <TextView
+                android:id="@+id/main_tv_message"
+                android:layout_width="@dimen/layout_margin_m"
+                android:layout_height="@dimen/layout_margin_m"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/layout_margin_xh"
+                android:background="@drawable/main_message_number_bg"
+                android:gravity="center"
+                android:textColor="@color/comm_white"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+
+        <View style="@style/line_horStyle" />
+
+        <TextView
+            android:id="@+id/main_action_more"
+            style="@style/personal_item_text"
+            android:drawableLeft="@drawable/icon_more"
+            android:text="@string/title_more" />
+
+        <View style="@style/line_horStyle" />
+
+    </LinearLayout>
 </LinearLayout>

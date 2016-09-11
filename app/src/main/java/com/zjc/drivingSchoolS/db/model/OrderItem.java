@@ -30,6 +30,12 @@ public class OrderItem extends AppResponse {
     private String title;
     private double total;
     private String uid;
+    /**
+     * createtime :
+     */
+
+    private String createtime;
+
 
     public String getContactsname() {
         return contactsname;
@@ -101,5 +107,13 @@ public class OrderItem extends AppResponse {
 
     public void setUid(String uid) {
         this.uid = uid;
+    }
+
+    public String getCreatetime() {
+        return createtime;
+    }
+
+    public void setCreatetime(String createtime) {
+        this.createtime = createtime;
     }
 }

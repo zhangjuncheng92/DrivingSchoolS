@@ -9,7 +9,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,8 +16,12 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.mobo.mobolibrary.util.image.ImageLoader;
 import com.zjc.drivingSchoolS.R;
+import com.zjc.drivingSchoolS.api.ApiHttpClient;
+import com.zjc.drivingSchoolS.api.ResultResponseHandler;
 import com.zjc.drivingSchoolS.db.SharePreferences.SharePreferencesUtil;
+import com.zjc.drivingSchoolS.db.models.MessageNumberOfNotRead;
 import com.zjc.drivingSchoolS.db.models.UserInfo;
+import com.zjc.drivingSchoolS.db.parsers.MessageNumberOfNotReadParser;
 import com.zjc.drivingSchoolS.eventbus.MainLogoutEvent;
 import com.zjc.drivingSchoolS.jpush.JPushUtil;
 import com.zjc.drivingSchoolS.ui.apply.ApplyActivity;
@@ -31,7 +34,7 @@ import com.zjc.drivingSchoolS.utils.Constants;
 
 import de.greenrobot.event.EventBus;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private Toolbar toolbar;
     private DrawerLayout drawer;
     private ImageView imgOne;
@@ -47,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         initToolBar();
         initView();
         initOrder();
+        initPerson();
     }
 
     private void initToolBar() {
@@ -73,44 +77,39 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         trans.add(R.id.main_map, fragment, "StudyReceiveFragment").show(fragment).commit();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        verifyIsLogin();
-    }
-
     /**
-     * 验证是否登录
+     * 初始化个人中心
      */
-    private void verifyIsLogin() {
+    private void initPerson() {
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-        if (SharePreferencesUtil.getInstance().isLogin()) {
-            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-            View headerView = navigationView.getHeaderView(0);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
+        initHeaderView(headerView);
 
-            navigationView.setNavigationItemSelectedListener(this);
-            headerView.setOnClickListener(new HeaderViewOnClick());
-            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-            drawer.setDrawerListener(toggle);
-            toggle.syncState();
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
 
-            UserInfo userInfo = SharePreferencesUtil.getInstance().readUser();
-            SimpleDraweeView sdIcon = (SimpleDraweeView) headerView.findViewById(R.id.personal_main_frg_sd_icon);
-            TextView tvName = (TextView) headerView.findViewById(R.id.personal_main_frg_tv_name);
-            ImageLoader.getInstance().displayImage(sdIcon, Constants.BASE_IP + userInfo.getLogo());
-            tvName.setText(userInfo.getSchoolname() + "");
-        } else {
-            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //跳转到登录
-                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                }
-            });
-        }
+        getNoticeNumber();
         toolbar.setNavigationIcon(R.drawable.icon_usercenter);
+    }
+
+
+    /**
+     * 初始化头部控件
+     *
+     * @param headerView
+     */
+    private void initHeaderView(View headerView) {
+        //设置头像，名字等
+        UserInfo userInfo = SharePreferencesUtil.getInstance().readUser();
+        SimpleDraweeView sdIcon = (SimpleDraweeView) headerView.findViewById(R.id.personal_main_frg_sd_icon);
+        TextView tvName = (TextView) headerView.findViewById(R.id.personal_main_frg_tv_name);
+        TextView tvNo = (TextView) headerView.findViewById(R.id.personal_main_frg_tv_no);
+        ImageLoader.getInstance().displayImage(sdIcon, Constants.BASE_IP + userInfo.getLogo());
+        tvName.setText(userInfo.getSchoolname() + "");
+        tvNo.setText(userInfo.getAddress());
     }
 
     @Override
@@ -122,11 +121,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
+    public void OnHeaderItemClick(View view) {
+        int id = view.getId();
 
         if (id == R.id.main_action_apply_history) {
             Intent intent = new Intent(MainActivity.this, ApplyActivity.class);
@@ -145,17 +141,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.main_action_logout) {
             logout();
         }
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
 
-    class HeaderViewOnClick implements View.OnClickListener {
-
-        @Override
-        public void onClick(View view) {
-            Intent intent = new Intent(MainActivity.this, PersonalActivity.class);
-            startActivity(intent);
-        }
+    public void HeaderViewOnClick(View view) {
+        Intent intent = new Intent(MainActivity.this, PersonalActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -166,11 +156,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
+    private void getNoticeNumber() {
+        ApiHttpClient.getInstance().getNoReadMessage(SharePreferencesUtil.getInstance().readUser().getUid(), new ResultResponseHandler(this) {
+
+            @Override
+            public void onResultSuccess(String result) {
+                MessageNumberOfNotRead message = new MessageNumberOfNotReadParser().parseResultMessage(result);
+                NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+                View headerView = navigationView.getHeaderView(0);
+                TextView tvMessage = (TextView) headerView.findViewById(R.id.main_tv_message);
+                if (message.getCount() > 0) {
+                    tvMessage.setText(message.getCount() + "");
+                    tvMessage.setVisibility(View.VISIBLE);
+                } else {
+                    tvMessage.setVisibility(View.GONE);
+                }
+            }
+        });
+    }
+
     private void logout() {
         JPushUtil.setAliasAndTags();
         SharePreferencesUtil.getInstance().setLogin(false);
         SharePreferencesUtil.getInstance().removePwd();
-        verifyIsLogin();
         //跳转到登录
         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(intent);

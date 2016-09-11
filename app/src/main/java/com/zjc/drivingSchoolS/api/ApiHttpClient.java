@@ -330,6 +330,16 @@ public class ApiHttpClient {
         HttpUtilsAsync.post(Constants.BASE_URL + "message/list", postRequest, asyncHttpResponseHandler);
     }
 
+    /**
+     * 未读消息数量
+     * 调用示例： /app/student/message/detail
+     */
+    public void getNoReadMessage(String uid, AsyncHttpResponseHandler asyncHttpResponseHandler) {
+        JsonObject postRequest = new JsonObject();
+        postRequest.addProperty("uid", uid);
+        HttpUtilsAsync.post(Constants.BASE_URL + "message/noread", postRequest, asyncHttpResponseHandler);
+    }
+
 
     /**
      * 1.1.26 学车订单-接单

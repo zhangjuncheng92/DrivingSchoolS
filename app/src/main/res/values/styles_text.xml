@@ -154,6 +154,15 @@
     </style>
 
     <!-- 个人中心-->
+    <!-- 个人中心功能列表字体-->
+    <style name="personal_item_text" parent="comm_layout_three">
+        <item name="android:textColor">@color/comm_text</item>
+        <item name="android:drawableRight">@drawable/icon_arrow_right</item>
+        <item name="android:drawablePadding">@dimen/layout_padding_l</item>
+        <item name="android:onClick">OnHeaderItemClick</item>
+    </style>
+
+
     <style name="personal_title_text">
         <item name="android:padding">@dimen/layout_padding_l</item>
         <item name="android:layout_width">wrap_content</item>

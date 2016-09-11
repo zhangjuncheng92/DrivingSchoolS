@@ -22,7 +22,7 @@
 
     <!--报名学车-->
     <string name="title_apply">报名学车</string>
-    <string name="personal_title">我</string>
+    <string name="personal_title">个人中心</string>
     <string name="personal_detail_title">个人信息</string>
     <string name="personal_detail_icon">图像</string>
     <string name="personal_detail_sex">驾校联系人</string>
@@ -49,7 +49,7 @@
 
 
     <!--预约学车-->
-    <string name="title_study_history">学车订单</string>
+    <string name="title_study_history">我的订单</string>
     <string name="title_apply_history">报名订单</string>
 
     <!--预约考试-->
@@ -91,4 +91,6 @@
 
     <!--驾校主页-->
     <string name="title_school">驾校主页</string>
+
+    <string name="title_more">更多</string>
 </resources>

@@ -59,8 +59,8 @@ public class StudyReceiveAdapter extends ZBaseRecyclerViewAdapter {
                 return;
             }
             tvName.setText(service.getTitle());
-            tvNumber.setText(service.getContactsname());
-            tvTime.setText(service.getContactsphone());
+            tvNumber.setText(service.getContactsname() + "：" + service.getContactsphone());
+            tvTime.setText(service.getCreatetime());
             tvMoney.setText(service.getTotal() + "元");
             tvStatus.setText(ConstantsParams.getStatus(service.getState()));
             //	1.预订成功 2.已支付 3.申请退订 4.已退订 5.消费中 6.已消费 7.待评价 8.已完成 9.已取消
@@ -123,7 +123,7 @@ public class StudyReceiveAdapter extends ZBaseRecyclerViewAdapter {
     private void startDistributionOrder(OrderItem item) {
         ZBaseFragment fragment = (ZBaseFragment) ((AppCompatActivity) getContext()).getSupportFragmentManager().getFragments().get(0);
         Bundle bundle = new Bundle();
-        bundle.putSerializable(Constants.ARGUMENT,item);
-        fragment.startActivity(ReceiveActivity.class,bundle);
+        bundle.putSerializable(Constants.ARGUMENT, item);
+        fragment.startActivity(ReceiveActivity.class, bundle);
     }
 }
