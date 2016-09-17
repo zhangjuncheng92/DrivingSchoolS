@@ -293,6 +293,7 @@
                         android:id="@+id/order_detail_frg_tv_school"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_toLeftOf="@+id/order_detail_frg_tv_school_collect" />
 
@@ -304,7 +305,8 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/layout_margin_l"
                         android:text="收藏驾校"
-                        android:textColor="@color/google_blue" />
+                        android:textColor="@color/google_blue"
+                        android:visibility="gone" />
                 </RelativeLayout>
 
                 <View style="@style/line_horStyle" />
@@ -331,6 +333,7 @@
                         android:id="@+id/order_detail_frg_tv_teacher"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_toLeftOf="@+id/order_detail_frg_tv_teacher_collect" />
 
@@ -342,7 +345,8 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/layout_margin_l"
                         android:text="收藏教练"
-                        android:textColor="@color/google_blue" />
+                        android:textColor="@color/google_blue"
+                        android:visibility="gone" />
                 </RelativeLayout>
 
                 <View style="@style/line_horStyle" />
@@ -385,6 +389,7 @@
                 android:paddingLeft="@dimen/layout_padding_ml"
                 android:paddingTop="@dimen/layout_padding_l"
                 android:text="订单信息" />
+
             <RelativeLayout
                 style="@style/comm_layout_two"
                 android:orientation="horizontal">
