@@ -120,7 +120,11 @@
         <!--个人中心-->
         <activity android:name="com.zjc.drivingSchoolS.ui.personal.PersonalActivity" />
 
+        <!--设置-->
+        <activity android:name="com.zjc.drivingSchoolS.ui.setting.SettingActivity" />
+
         <!--百度地图-->
+
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="paKOYpyPaalzoof7Ss5GSkqfk6BVa7vG" />
@@ -272,6 +276,17 @@
             android:name="JPUSH_APPKEY"
             android:value="6e361e3065e8d95f2ac2002c" />
         <!--  </>值来自开发者平台取得的AppKey-->
+
+        <!-- 360自动更新-->
+        <activity
+            android:name="com.qihoo.updatesdk.lib.UpdateTipDialogActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <service
+            android:name="com.qihoo.appstore.updatelib.CheckUpdateService"
+            android:exported="false" />
     </application>
 
 </manifest>

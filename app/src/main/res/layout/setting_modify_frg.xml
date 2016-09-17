@@ -1,0 +1,61 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/layout_margin_h"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/setting_modify_frg_old"
+        style="@style/comm_layout_two"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/layout_margin_m"
+        android:layout_marginRight="@dimen/layout_margin_m"
+        android:layout_marginTop="@dimen/layout_margin_l"
+        android:drawableLeft="@drawable/icon_password"
+        android:drawablePadding="@dimen/layout_padding_ml"
+        android:hint="请输入旧密码"
+        android:inputType="textPassword"
+        android:singleLine="true"
+        android:textSize="@dimen/text_size_title" />
+
+    <EditText
+        android:id="@+id/setting_modify_frg_new"
+        style="@style/comm_layout_two"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/layout_margin_m"
+        android:layout_marginRight="@dimen/layout_margin_m"
+        android:layout_marginTop="@dimen/layout_margin_l"
+        android:drawableLeft="@drawable/icon_password"
+        android:drawablePadding="@dimen/layout_padding_ml"
+        android:hint="请输入新密码"
+        android:inputType="textPassword"
+        android:singleLine="true"
+        android:textSize="@dimen/text_size_title" />
+
+    <EditText
+        android:id="@+id/setting_modify_frg_confirm"
+        style="@style/comm_layout_two"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/layout_margin_m"
+        android:layout_marginRight="@dimen/layout_margin_m"
+        android:layout_marginTop="@dimen/layout_margin_l"
+        android:drawableLeft="@drawable/icon_password"
+        android:drawablePadding="@dimen/layout_padding_ml"
+        android:hint="请再次输入新密码"
+        android:imeOptions="actionGo"
+        android:inputType="textPassword"
+        android:singleLine="true"
+        android:textSize="@dimen/text_size_title" />
+
+
+    <TextView
+        android:id="@+id/setting_modify_frg_commit"
+        style="@style/comm_select_yellow"
+        android:layout_marginTop="@dimen/layout_margin_h"
+        android:gravity="center"
+        android:text="修改密码" />
+</LinearLayout>
+

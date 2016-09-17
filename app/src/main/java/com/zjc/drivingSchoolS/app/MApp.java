@@ -9,6 +9,8 @@ import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.facebook.imagepipeline.decoder.SimpleProgressiveJpegConfig;
 import com.mobo.mobolibrary.app.BaseApplication;
 import com.mobo.mobolibrary.logs.Logs;
+import com.qihoo.updatesdk.lib.UpdateHelper;
+import com.zjc.drivingSchoolS.R;
 import com.zjc.drivingSchoolS.api.HttpUtilsAsync;
 import com.zjc.drivingSchoolS.db.SharePreferences.SharePreferencesUtil;
 import com.zjc.drivingSchoolS.db.model.City;
@@ -39,6 +41,7 @@ public class MApp extends BaseApplication {
         initPay();
         JPushUtil.initJPush();
         SDKInitializer.initialize(this);
+        UpdateHelper.getInstance().init(getApplicationContext(), (getResources().getColor(R.color.colorPrimary)));
     }
 
     private void initPay() {
@@ -61,6 +64,7 @@ public class MApp extends BaseApplication {
         JPushInterface.setDebugMode(b);    // 设置开启日志,发布时请关闭日志'
         Logs.setsIsLogEnabled(b);
         HttpUtilsAsync.getInstance().setLoggingEnabled(b);
+        UpdateHelper.getInstance().setDebugMode(b);
     }
 
     private void initFresco() {

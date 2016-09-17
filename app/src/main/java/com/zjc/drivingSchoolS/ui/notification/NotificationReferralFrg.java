@@ -7,11 +7,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 
 import com.alertdialogpro.AlertDialogPro;
 import com.google.gson.Gson;
 import com.jude.easyrecyclerview.EasyRecyclerView;
-import com.mobo.mobolibrary.ui.base.ZBaseToolBarFragment;
 import com.mobo.mobolibrary.ui.base.adapter.ZBaseRecyclerViewAdapter;
 import com.mobo.mobolibrary.ui.divideritem.HorizontalDividerItemDecoration;
 import com.mobo.mobolibrary.ui.widget.empty.EmptyLayout;
@@ -21,6 +21,7 @@ import com.zjc.drivingSchoolS.api.ResultResponseHandler;
 import com.zjc.drivingSchoolS.db.SharePreferences.SharePreferencesUtil;
 import com.zjc.drivingSchoolS.db.model.JPushNotification;
 import com.zjc.drivingSchoolS.db.model.MessageItem;
+import com.zjc.drivingSchoolS.db.models.CommStatus;
 import com.zjc.drivingSchoolS.db.parser.MessageListResponseParser;
 import com.zjc.drivingSchoolS.db.response.MessageListResponse;
 import com.zjc.drivingSchoolS.eventbus.JPushNotificationStateEvent;
@@ -28,6 +29,11 @@ import com.zjc.drivingSchoolS.eventbus.JpushNotificationEvent;
 import com.zjc.drivingSchoolS.ui.login.LoginActivity;
 import com.zjc.drivingSchoolS.ui.notification.adapter.NotificationsItemAdapter;
 import com.zjc.drivingSchoolS.utils.ConstantsParams;
+import com.zjc.drivingSchoolS.widget.CommStatusAdapter;
+import com.zjc.drivingSchoolS.widget.ZBaseSelectFragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import de.greenrobot.event.EventBus;
 
@@ -37,10 +43,64 @@ import de.greenrobot.event.EventBus;
  * @Date 2016.06.13
  * @description 转诊单通知
  */
-public class NotificationReferralFrg extends ZBaseToolBarFragment implements ZBaseRecyclerViewAdapter.OnItemClickListener, ZBaseRecyclerViewAdapter.OnItemLongClickListener, ZBaseRecyclerViewAdapter.OnLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
+public class NotificationReferralFrg extends ZBaseSelectFragment implements ZBaseRecyclerViewAdapter.OnItemClickListener, ZBaseRecyclerViewAdapter.OnItemLongClickListener, ZBaseRecyclerViewAdapter.OnLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
+    private String noticeStatus = ConstantsParams.NOTICE_ALL;
     private NotificationsItemAdapter mAdapter;
     private EasyRecyclerView mRecyclerView;
     private MessageItem messageItem;
+
+    private EasyRecyclerView statusRecyclerView;
+    private CommStatusAdapter statusAdapter;
+
+    @Override
+    protected void setSelectTitle() {
+        setToggle(mToolbar, ConstantsParams.NOTICE_ALL_TEXT, new OnTitleClick());
+
+        statusRecyclerView = (EasyRecyclerView) expandableRelativeLayout.findViewById(R.id.recyclerView);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        statusRecyclerView.setLayoutManager(layoutManager);
+        statusRecyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity())
+                .colorResId(R.color.comm_divider).sizeResId(R.dimen.comm_divider_line).build());
+        statusAdapter = new CommStatusAdapter(getActivity());
+        statusAdapter.setOnItemClickLitener(new OnTitleItemClick());
+        statusRecyclerView.setAdapter(statusAdapter);
+
+        List<CommStatus> statuses = new ArrayList<>();
+        statuses.add(new CommStatus(ConstantsParams.NOTICE_ALL_TEXT, ConstantsParams.NOTICE_ALL));
+        statuses.add(new CommStatus(ConstantsParams.NOTICE_UNREAD_TEXT, ConstantsParams.NOTICE_UNREAD));
+        statuses.add(new CommStatus(ConstantsParams.NOTICE_READ_TEXT, ConstantsParams.NOTICE_READ));
+        statusAdapter.addAll(statuses);
+    }
+
+    /**
+     * 标题列表点击事件
+     */
+    class OnTitleItemClick implements ZBaseRecyclerViewAdapter.OnItemClickListener {
+        @Override
+        public void onItemClick(View view, int position) {
+            CommStatus status = (CommStatus) statusAdapter.getItem(position);
+
+            textView.setChecked(false);
+            textView.setText(status.getName());
+            statusAdapter.setIndex(position);
+
+            noticeStatus = status.getStatus();
+            mRecyclerView.getSwipeToRefresh().setRefreshing(true);
+            onRefresh();
+        }
+    }
+
+    /**
+     * 标题点击事件
+     */
+    class OnTitleClick implements CompoundButton.OnCheckedChangeListener {
+
+        @Override
+        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+            expandableRelativeLayout.toggle();
+        }
+    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -86,13 +146,8 @@ public class NotificationReferralFrg extends ZBaseToolBarFragment implements ZBa
     }
 
     @Override
-    protected void setTitle() {
-        setTitle(mToolbar, "消息");
-    }
-
-    @Override
     public void onRefresh() {
-        ApiHttpClient.getInstance().getMessageByTags(SharePreferencesUtil.getInstance().readUser().getUid(), ConstantsParams.PAGE_START, new ResultResponseHandler(getActivity(), mRecyclerView) {
+        ApiHttpClient.getInstance().getMessageByTags(SharePreferencesUtil.getInstance().readUser().getUid(), ConstantsParams.PAGE_START, noticeStatus, new ResultResponseHandler(getActivity(), mRecyclerView) {
 
             @Override
             public void onResultSuccess(String result) {
@@ -105,7 +160,7 @@ public class NotificationReferralFrg extends ZBaseToolBarFragment implements ZBa
     }
 
     private void getNotice(EmptyLayout emptyLayout) {
-        ApiHttpClient.getInstance().getMessageByTags(SharePreferencesUtil.getInstance().readUser().getUid(), ConstantsParams.PAGE_START, new ResultResponseHandler(getActivity(), emptyLayout) {
+        ApiHttpClient.getInstance().getMessageByTags(SharePreferencesUtil.getInstance().readUser().getUid(), ConstantsParams.PAGE_START, noticeStatus, new ResultResponseHandler(getActivity(), emptyLayout) {
             @Override
             public void onResultSuccess(String result) {
                 MessageListResponse orderListResponse = new MessageListResponseParser().parseResultMessage(result);
@@ -118,7 +173,7 @@ public class NotificationReferralFrg extends ZBaseToolBarFragment implements ZBa
     @Override
     public void onLoadMore() {
         int start = mAdapter.getCount();
-        ApiHttpClient.getInstance().getMessageByTags(SharePreferencesUtil.getInstance().readUser().getUid(), start, new ResultResponseHandler(getActivity()) {
+        ApiHttpClient.getInstance().getMessageByTags(SharePreferencesUtil.getInstance().readUser().getUid(), start, noticeStatus, new ResultResponseHandler(getActivity()) {
 
             @Override
             public void onResultSuccess(String result) {

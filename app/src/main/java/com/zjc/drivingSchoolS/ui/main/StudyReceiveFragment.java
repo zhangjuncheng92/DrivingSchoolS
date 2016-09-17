@@ -141,6 +141,7 @@ public class StudyReceiveFragment extends ZBaseFragment implements SwipeRefreshL
      */
     public boolean isLoadFinish(int size) {
         if (size == 0) {
+            getEmptyLayout().setNoDataContent(getString(R.string.error_view_no_data_study));
             getEmptyLayout().setErrorType(EmptyLayout.NODATA_ENABLE_CLICK);
             return true;
         }

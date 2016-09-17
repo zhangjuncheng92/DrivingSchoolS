@@ -9,6 +9,7 @@ import android.os.Handler;
 
 import com.zjc.drivingSchoolS.R;
 import com.zjc.drivingSchoolS.db.SharePreferences.SharePreferencesUtil;
+import com.zjc.drivingSchoolS.ui.login.LoginActivity;
 
 
 public class WelcomeActivity extends Activity {
@@ -35,11 +36,15 @@ public class WelcomeActivity extends Activity {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         } finally {
-            toActvity(MainActivity.class);
+            if (SharePreferencesUtil.getInstance().isLogin()) {
+                toActivity(MainActivity.class);
+            } else {
+                toActivity(LoginActivity.class);
+            }
         }
     }
 
-    private void toActvity(final Class<?> target) {
+    private void toActivity(final Class<?> target) {
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {

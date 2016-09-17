@@ -93,17 +93,20 @@ public class ConstantsParams {
      * 预订成功
      */
     public static final String STUDY_ORDER_ALL = null;
+    public static final String STUDY_ORDER_ALL_TEXT = "全部订单";
 
     /**
      * 预订成功
      */
     public static final String STUDY_ORDER_ONE = "1";
+    public static final String STUDY_ORDER_ONE_STATUS_TXT = "未接单";
     public static final String STUDY_ORDER_ONE_TXT = "等待接单";
 
     /**
      * 已支付
      */
     public static final String STUDY_ORDER_TWO = "2";
+    public static final String STUDY_ORDER_TWO_STATUS_TXT = "已接单";
     public static final String STUDY_ORDER_TWO_TXT = "已支付";
 
     /**
@@ -122,13 +125,13 @@ public class ConstantsParams {
      * 消费中
      */
     public static final String STUDY_ORDER_FIVE = "5";
-    public static final String STUDY_ORDER_FIVE_TXT = "消费中";
+    public static final String STUDY_ORDER_FIVE_TXT = "练车中";
 
     /**
      * 已消费
      */
     public static final String STUDY_ORDER_SIX = "6";
-    public static final String STUDY_ORDER_SIX_TXT = "已消费";
+    public static final String STUDY_ORDER_SIX_TXT = "培训完成";
 
     /**
      * 待评价
@@ -184,5 +187,25 @@ public class ConstantsParams {
      * 可接单教练
      */
     public static final int TEACHER_ENABLE = 1;
+
+    /***
+     * ########### 消息 ############*/
+    /**
+     * 0：全部
+     */
+    public static final String NOTICE_ALL = "0";
+    public static final String NOTICE_ALL_TEXT = "全部消息";
+
+    /**
+     * 1：未读
+     */
+    public static final String NOTICE_UNREAD = "1";
+    public static final String NOTICE_UNREAD_TEXT = "未读消息";
+
+    /**
+     * 2：已读
+     */
+    public static final String NOTICE_READ = "2";
+    public static final String NOTICE_READ_TEXT = "已读消息";
 
 }

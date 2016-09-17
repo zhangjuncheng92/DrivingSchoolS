@@ -178,7 +178,7 @@ public class LoginRegisterFragment extends ZBaseToolBarFragment implements View.
                 SharePreferencesUtil.getInstance().savePwd(edtCode.getEditableText().toString());
                 SharePreferencesUtil.getInstance().saveUser(userInfo);
                 SharePreferencesUtil.getInstance().setLogin(true);
-                JPushUtil.setAliasAndTags();
+                JPushUtil.setAliasAndTags(getActivity());
                 getActivity().finish();
             }
         });

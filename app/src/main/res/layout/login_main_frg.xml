@@ -10,28 +10,33 @@
 
         <EditText
             android:id="@+id/login_main_frg_edt_phone"
-            style="@style/comm_layout_four"
+            style="@style/comm_layout_two"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/layout_margin_m"
             android:drawableLeft="@drawable/icon_mobilephone"
             android:drawablePadding="@dimen/layout_padding_ml"
             android:hint="@string/login_username_hint"
-            android:singleLine="true" />
+            android:inputType="phone"
+            android:maxLength="11"
+            android:singleLine="true"
+            android:textSize="@dimen/text_size_title" />
 
         <EditText
             android:id="@+id/login_main_frg_edt_pawd"
-            style="@style/comm_layout_four"
+            style="@style/comm_layout_two"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/layout_margin_m"
             android:layout_marginRight="@dimen/layout_margin_m"
+            android:layout_marginTop="@dimen/layout_margin_l"
             android:drawableLeft="@drawable/icon_password"
             android:drawablePadding="@dimen/layout_padding_ml"
             android:hint="@string/login_password_hint"
             android:imeOptions="actionGo"
             android:inputType="textPassword"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:textSize="@dimen/text_size_title" />
 
         <TextView
             android:id="@+id/login_main_frg_tv_commit"

@@ -1,11 +1,13 @@
 package com.zjc.drivingSchoolS.jpush;
 
+import android.content.Context;
+
 import com.mobo.mobolibrary.logs.Logs;
+import com.zjc.drivingSchoolS.api.ApiHttpClient;
+import com.zjc.drivingSchoolS.api.ResultResponseHandler;
 import com.zjc.drivingSchoolS.app.MApp;
 import com.zjc.drivingSchoolS.db.SharePreferences.SharePreferencesUtil;
 import com.zjc.drivingSchoolS.db.models.UserInfo;
-
-import java.util.HashSet;
 
 import cn.jpush.android.api.JPushInterface;
 
@@ -34,7 +36,6 @@ public class JPushUtil {
     public static void initJPush() {
         //推送
         JPushInterface.init(MApp.getInstance().getApplicationContext());
-        setAliasAndTags();
     }
 
     /**
@@ -54,18 +55,17 @@ public class JPushUtil {
     /**
      * 设置别名和标记
      */
-    public static void setAliasAndTags() {
+    public static void setAliasAndTags(Context context) {
         try {
             //调用JPush API设置Alias
             if (SharePreferencesUtil.getInstance().isLogin()) {
                 UserInfo userInfo = SharePreferencesUtil.getInstance().readUser();
+                ApiHttpClient.getInstance().registerJPush(userInfo.getUid(), JPushInterface.getRegistrationID(context), new ResultResponseHandler(context) {
 
-            } else if (SharePreferencesUtil.getInstance().isLogin()) {
-                //如果认证中
-                JPushInterface.setAliasAndTags(MApp.getInstance().getApplicationContext(), SharePreferencesUtil.getInstance().readUser().getAddress() + "", new HashSet<String>(), null);
-            } else {
-                //如果未登录，未认证
-                JPushInterface.setAliasAndTags(MApp.getInstance().getApplicationContext(), "", new HashSet<String>(), null);
+                    @Override
+                    public void onResultSuccess(String result) {
+                    }
+                });
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/layout_margin_m"
+        android:layout_marginRight="@dimen/layout_margin_m"
+        android:layout_marginTop="@dimen/layout_margin_xh"
+        android:background="@drawable/comm_white_bg">
+
+        <com.zjc.drivingSchoolS.widget.ContainsEmojiEditText
+            android:id="@+id/setting_feedback_edtcontact"
+            style="@style/my_edittext_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="标题"
+            android:paddingBottom="@dimen/layout_padding_l"
+            android:paddingLeft="@dimen/layout_padding_l"
+            android:paddingTop="@dimen/layout_padding_l"
+            android:singleLine="true" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/layout_margin_m"
+        android:layout_marginRight="@dimen/layout_margin_m"
+        android:layout_marginTop="@dimen/layout_margin_h"
+        android:background="@drawable/comm_white_bg">
+
+        <com.zjc.drivingSchoolS.widget.ContainsEmojiEditText
+            android:id="@+id/setting_feedback_edtsend"
+            style="@style/my_edittext_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:hint="请提出您的宝贵意见(我们需要您的反馈)"
+            android:lines="10"
+            android:paddingBottom="@dimen/layout_padding_ml"
+            android:paddingLeft="@dimen/layout_padding_l"
+            android:paddingTop="@dimen/layout_padding_ml" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/setting_feedback_btnsend"
+        style="@style/comm_select_yellow"
+        android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/layout_margin_xxh"
+        android:text="发 送" />
+
+</LinearLayout>

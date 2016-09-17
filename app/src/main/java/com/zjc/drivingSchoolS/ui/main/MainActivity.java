@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.mobo.mobolibrary.util.image.ImageLoader;
+import com.qihoo.updatesdk.lib.UpdateHelper;
 import com.zjc.drivingSchoolS.R;
 import com.zjc.drivingSchoolS.api.ApiHttpClient;
 import com.zjc.drivingSchoolS.api.ResultResponseHandler;
@@ -30,6 +31,7 @@ import com.zjc.drivingSchoolS.ui.login.LoginActivity;
 import com.zjc.drivingSchoolS.ui.notification.NotificationActivity;
 import com.zjc.drivingSchoolS.ui.order.OrderManagerActivity;
 import com.zjc.drivingSchoolS.ui.personal.PersonalActivity;
+import com.zjc.drivingSchoolS.ui.setting.SettingActivity;
 import com.zjc.drivingSchoolS.utils.Constants;
 
 import de.greenrobot.event.EventBus;
@@ -51,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         initView();
         initOrder();
         initPerson();
+        checkIsUpData();
     }
 
     private void initToolBar() {
@@ -121,6 +124,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
+        initHeaderView(headerView);
+    }
+
     public void OnHeaderItemClick(View view) {
         int id = view.getId();
 
@@ -136,10 +147,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else if (id == R.id.main_action_notice) {
             Intent intent = new Intent(MainActivity.this, NotificationActivity.class);
             startActivity(intent);
-        } else if (id == R.id.main_action_modify_password) {
-
-        } else if (id == R.id.main_action_logout) {
-            logout();
+        } else if (id == R.id.main_action_more) {
+            Intent intent = new Intent(MainActivity.this, SettingActivity.class);
+            startActivity(intent);
         }
     }
 
@@ -175,8 +185,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
+    /**
+     * 登出
+     *
+     * @param event
+     */
+    public void onEventMainThread(MainLogoutEvent event) {
+        logout();
+    }
+
     private void logout() {
-        JPushUtil.setAliasAndTags();
+        JPushUtil.setAliasAndTags(this);
         SharePreferencesUtil.getInstance().setLogin(false);
         SharePreferencesUtil.getInstance().removePwd();
         //跳转到登录
@@ -185,13 +204,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         this.finish();
     }
 
-    /**
-     * 登出
-     *
-     * @param event
-     */
-    public void onEventMainThread(MainLogoutEvent event) {
-        logout();
+    private void checkIsUpData() {
+        UpdateHelper.getInstance().autoUpdate("com.zjc.drivingSchoolS");
     }
 
     @Override

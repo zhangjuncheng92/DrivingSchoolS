@@ -91,15 +91,12 @@ public class ApiHttpClient {
     /**
      * 1.7接口：updatePwd
      * 用途：用户修改密码
-     * 参数：phone(手机号)，password(密码),oldpassword(旧密码)
-     * 调用示例：http://localhost:8080/estate/services/userinfo/updatePwd?phone=13026313632&oldpassword=888866&password=888888
      */
-    public void updatePwd(String phone, String password, String oldpassword, AsyncHttpResponseHandler asyncHttpResponseHandler) {
-        RequestParams params = new RequestParams();
-        params.put("phone", phone);
-        params.put("password", Util.encrypt(password));
-        params.put("oldpassword", Util.encrypt(oldpassword));
-        HttpUtilsAsync.post(Constants.BASE_URL + "userinfo/updatePwd", params, asyncHttpResponseHandler);
+    public void updatePwd(String uid, String password, AsyncHttpResponseHandler asyncHttpResponseHandler) {
+        JsonObject postRequest = new JsonObject();
+        postRequest.addProperty("uid", uid);
+        postRequest.addProperty("password", password);
+        HttpUtilsAsync.post(Constants.BASE_URL + "password/change", postRequest, asyncHttpResponseHandler);
     }
 
     /**
@@ -113,6 +110,16 @@ public class ApiHttpClient {
         RequestParams params = new RequestParams();
         params.put("phone", phone);
         HttpUtilsAsync.post(Constants.BASE_URL + "userinfo/loginout", params, asyncHttpResponseHandler);
+    }
+
+    /**
+     * 注册极光
+     */
+    public void registerJPush(String userId, String pushid, AsyncHttpResponseHandler asyncHttpResponseHandler) {
+        JsonObject postRequest = new JsonObject();
+        postRequest.addProperty("uid", userId);
+        postRequest.addProperty("pushid", pushid);
+        HttpUtilsAsync.post(Constants.BASE_URL + "pushid", postRequest, asyncHttpResponseHandler);
     }
 
     /**
@@ -323,10 +330,11 @@ public class ApiHttpClient {
      * 参数   偏移量	offset	number	必填/用户ID	uid	string	必填/分页大小	pagesize	number	必填
      * 调用示例：message/list
      */
-    public void getMessageByTags(String userId, int start, AsyncHttpResponseHandler asyncHttpResponseHandler) {
+    public void getMessageByTags(String userId, int start, String noticeStatus, AsyncHttpResponseHandler asyncHttpResponseHandler) {
         JsonObject postRequest = new JsonObject();
         postRequest.addProperty("uid", userId);
         postRequest.addProperty("offset", start);
+        postRequest.addProperty("type", noticeStatus);
         postRequest.addProperty("pagesize", ConstantsParams.PAGE_SIZE);
         HttpUtilsAsync.post(Constants.BASE_URL + "message/list", postRequest, asyncHttpResponseHandler);
     }
@@ -479,5 +487,19 @@ public class ApiHttpClient {
         postRequest.addProperty("uid", userId);
         postRequest.addProperty("orid", orid);
         HttpUtilsAsync.post(Constants.BASE_URL + "signuporder/detail", postRequest, asyncHttpResponseHandler);
+    }
+
+
+    /**
+     * 接口：feedback
+     * 用途：意见反馈
+     */
+    public void feedback(String content, String nickname, String title, String uid, AsyncHttpResponseHandler asyncHttpResponseHandler) {
+        JsonObject postRequest = new JsonObject();
+        postRequest.addProperty("content", content);
+        postRequest.addProperty("nickname", nickname);
+        postRequest.addProperty("title", title);
+        postRequest.addProperty("uid", uid);
+        HttpUtilsAsync.post(Constants.BASE_URL + "feedback", postRequest, asyncHttpResponseHandler);
     }
 }
