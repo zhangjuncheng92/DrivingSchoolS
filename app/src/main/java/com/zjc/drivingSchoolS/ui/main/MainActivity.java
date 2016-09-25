@@ -2,18 +2,22 @@ package com.zjc.drivingSchoolS.ui.main;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.FragmentTabHost;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.mobo.mobolibrary.ui.base.ZBaseActivity;
+import com.mobo.mobolibrary.util.Util;
 import com.mobo.mobolibrary.util.image.ImageLoader;
 import com.qihoo.updatesdk.lib.UpdateHelper;
 import com.zjc.drivingSchoolS.R;
@@ -36,12 +40,10 @@ import com.zjc.drivingSchoolS.utils.Constants;
 
 import de.greenrobot.event.EventBus;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends ZBaseActivity implements View.OnClickListener {
     private Toolbar toolbar;
     private DrawerLayout drawer;
-    private ImageView imgOne;
-    private ImageView imgTwo;
-    private ImageView imgThree;
+    private FragmentTabHost mTabHost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +53,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         initToolBar();
         initView();
-        initOrder();
         initPerson();
         checkIsUpData();
     }
@@ -64,20 +65,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initView() {
-        imgOne = (ImageView) findViewById(R.id.main_one);
-        imgTwo = (ImageView) findViewById(R.id.main_two);
-        imgThree = (ImageView) findViewById(R.id.main_three);
+        mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
+        mTabHost.setup(this, getSupportFragmentManager(), R.id.real_tab_content);
 
-        imgOne.setOnClickListener(this);
-        imgTwo.setOnClickListener(this);
-        imgThree.setOnClickListener(this);
+        mTabHost.getTabWidget().setShowDividers(0);
+        initTabs();
     }
 
+    private void initTabs() {
+        MainTab[] tabs = MainTab.values();
+        final int size = tabs.length;
+        for (int i = 0; i < size; i++) {
+            MainTab mainTab = tabs[i];
+            TabHost.TabSpec tab = mTabHost.newTabSpec(getString(mainTab.getResName()));
 
-    private void initOrder() {
-        FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
-        StudyReceiveFragment fragment = new StudyReceiveFragment();
-        trans.add(R.id.main_map, fragment, "StudyReceiveFragment").show(fragment).commit();
+            View indicator = getLayoutInflater().inflate(R.layout.main_indicator_tab, null);
+            ImageView icon = (ImageView) indicator.findViewById(R.id.tab_icon);
+            icon.setImageResource(mainTab.getResIcon());
+            TextView title = (TextView) indicator.findViewById(R.id.tab_title);
+            title.setText(getString(mainTab.getResName()));
+            tab.setIndicator(indicator);
+            tab.setContent(new TabHost.TabContentFactory() {
+
+                @Override
+                public View createTabContent(String tag) {
+                    return new View(MainActivity.this);
+                }
+            });
+            mTabHost.addTab(tab, mainTab.getClz(), null);
+        }
     }
 
     /**
@@ -85,26 +101,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      */
     private void initPerson() {
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        View headerView = navigationView.getHeaderView(0);
-        initHeaderView(headerView);
-
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
-        getNoticeNumber();
         toolbar.setNavigationIcon(R.drawable.icon_usercenter);
     }
 
 
     /**
      * 初始化头部控件
-     *
-     * @param headerView
      */
-    private void initHeaderView(View headerView) {
+    private void initHeaderView() {
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
         //设置头像，名字等
         UserInfo userInfo = SharePreferencesUtil.getInstance().readUser();
         SimpleDraweeView sdIcon = (SimpleDraweeView) headerView.findViewById(R.id.personal_main_frg_sd_icon);
@@ -120,6 +129,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
+            if (mTabHost.getCurrentTab() == 0) {
+                exit();
+            } else {
+                mTabHost.setCurrentTab(0);
+            }
             super.onBackPressed();
         }
     }
@@ -127,9 +141,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onResume() {
         super.onResume();
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        View headerView = navigationView.getHeaderView(0);
-        initHeaderView(headerView);
+        initHeaderView();
+        getNoticeNumber();
     }
 
     public void OnHeaderItemClick(View view) {
@@ -161,9 +174,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.main_one) {
-
-        }
     }
 
     private void getNoticeNumber() {
@@ -213,4 +223,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
+
+    boolean isExit;
+
+    public void exit() {
+        if (!isExit) {
+            isExit = true;
+            Util.showCustomMsg("再按一次退出程序");
+            mHandler.sendEmptyMessageDelayed(0, 3000);
+        } else {
+            finish();
+        }
+    }
+
+    Handler mHandler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            isExit = false;
+        }
+    };
 }

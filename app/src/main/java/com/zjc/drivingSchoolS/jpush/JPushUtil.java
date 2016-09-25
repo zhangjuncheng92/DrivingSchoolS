@@ -1,6 +1,7 @@
 package com.zjc.drivingSchoolS.jpush;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.mobo.mobolibrary.logs.Logs;
 import com.zjc.drivingSchoolS.api.ApiHttpClient;
@@ -58,7 +59,7 @@ public class JPushUtil {
     public static void setAliasAndTags(Context context) {
         try {
             //调用JPush API设置Alias
-            if (SharePreferencesUtil.getInstance().isLogin()) {
+            if (SharePreferencesUtil.getInstance().isLogin() && !TextUtils.isEmpty(JPushInterface.getRegistrationID(context))) {
                 UserInfo userInfo = SharePreferencesUtil.getInstance().readUser();
                 ApiHttpClient.getInstance().registerJPush(userInfo.getUid(), JPushInterface.getRegistrationID(context), new ResultResponseHandler(context) {
 

@@ -208,4 +208,24 @@ public class ConstantsParams {
     public static final String NOTICE_READ = "2";
     public static final String NOTICE_READ_TEXT = "已读消息";
 
+
+    /***
+     * ########### 订单类型 ############*/
+    /**
+     * 0：全部
+     */
+    public static final String STUDY_TYPE_ALL = "0";
+    public static final String STUDY_TYPE_ALL_TEXT = "全部订单";
+
+    /**
+     * 1：未读
+     */
+    public static final String STUDY_TYPE_VIP = "1";
+    public static final String STUDY_TYPE_VIP_TEXT = "VIP订单";
+
+    /**
+     * 2：已读
+     */
+    public static final String STUDY_TYPE_COMM = "2";
+    public static final String STUDY_TYPE_COMM_TEXT = "普通订单";
 }

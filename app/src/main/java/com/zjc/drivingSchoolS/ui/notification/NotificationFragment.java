@@ -39,11 +39,11 @@ import de.greenrobot.event.EventBus;
 
 /**
  * @author Z
- * @Filename NotificationReferralFrg.java
+ * @Filename NotificationFragment.java
  * @Date 2016.06.13
  * @description 转诊单通知
  */
-public class NotificationReferralFrg extends ZBaseSelectFragment implements ZBaseRecyclerViewAdapter.OnItemClickListener, ZBaseRecyclerViewAdapter.OnItemLongClickListener, ZBaseRecyclerViewAdapter.OnLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
+public class NotificationFragment extends ZBaseSelectFragment implements ZBaseRecyclerViewAdapter.OnItemClickListener, ZBaseRecyclerViewAdapter.OnItemLongClickListener, ZBaseRecyclerViewAdapter.OnLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
     private String noticeStatus = ConstantsParams.NOTICE_ALL;
     private NotificationsItemAdapter mAdapter;
     private EasyRecyclerView mRecyclerView;

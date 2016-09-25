@@ -49,6 +49,7 @@
 
 
     <!--预约学车-->
+    <string name="title_study">学车订单</string>
     <string name="title_study_history">我的订单</string>
     <string name="title_apply_history">报名订单</string>
 
