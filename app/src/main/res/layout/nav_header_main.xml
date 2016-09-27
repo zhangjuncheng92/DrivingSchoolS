@@ -90,16 +90,6 @@
         android:orientation="vertical">
 
         <TextView
-
-            android:id="@+id/main_action_apply_history"
-            style="@style/personal_item_text"
-            android:drawableLeft="@drawable/icon_apply_history"
-            android:text="@string/title_apply_history" />
-
-        <View style="@style/line_horStyle" />
-
-
-        <TextView
             android:id="@+id/main_action_history"
             style="@style/personal_item_text"
             android:drawableLeft="@drawable/icon_study_history"

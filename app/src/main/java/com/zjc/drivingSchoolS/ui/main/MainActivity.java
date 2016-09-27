@@ -1,5 +1,6 @@
 package com.zjc.drivingSchoolS.ui.main;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,7 +11,10 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -33,7 +37,8 @@ import com.zjc.drivingSchoolS.ui.apply.ApplyActivity;
 import com.zjc.drivingSchoolS.ui.collect.TeacherManagerActivity;
 import com.zjc.drivingSchoolS.ui.login.LoginActivity;
 import com.zjc.drivingSchoolS.ui.notification.NotificationActivity;
-import com.zjc.drivingSchoolS.ui.order.OrderManagerActivity;
+import com.zjc.drivingSchoolS.ui.order.OrderMainActivity;
+import com.zjc.drivingSchoolS.ui.order.back.OrderManagerActivity;
 import com.zjc.drivingSchoolS.ui.personal.PersonalActivity;
 import com.zjc.drivingSchoolS.ui.setting.SettingActivity;
 import com.zjc.drivingSchoolS.utils.Constants;
@@ -62,6 +67,42 @@ public class MainActivity extends ZBaseActivity implements View.OnClickListener 
         setSupportActionBar(toolbar);
         //设置标题
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_active) {
+            final Dialog dialog = new Dialog(MainActivity.this);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+            ImageView imageView = new ImageView(MainActivity.this);
+            imageView.setImageResource(R.drawable.active);
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.dismiss();
+                }
+            });
+
+            dialog.setContentView(imageView);
+            dialog.show();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void initView() {
@@ -152,7 +193,7 @@ public class MainActivity extends ZBaseActivity implements View.OnClickListener 
             Intent intent = new Intent(MainActivity.this, ApplyActivity.class);
             startActivity(intent);
         } else if (id == R.id.main_action_history) {
-            Intent intent = new Intent(MainActivity.this, OrderManagerActivity.class);
+            Intent intent = new Intent(MainActivity.this, OrderMainActivity.class);
             startActivity(intent);
         } else if (id == R.id.main_action_teacher) {
             Intent intent = new Intent(MainActivity.this, TeacherManagerActivity.class);

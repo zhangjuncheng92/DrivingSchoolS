@@ -164,6 +164,13 @@ public class StudyListFragment extends ZBaseFragment implements SwipeRefreshLayo
         }
     }
 
+
+    public void refreshByTitle(String status) {
+        orderStatus = status;
+        mRecyclerView.getSwipeToRefresh().setRefreshing(true);
+        onRefresh();
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();

@@ -92,7 +92,10 @@
             android:windowSoftInputMode="adjustPan" />
 
         <!--我的订单-->
-        <activity android:name="com.zjc.drivingSchoolS.ui.order.OrderManagerActivity" />
+        <activity android:name=".ui.order.OrderMainActivity" />
+
+        <!--我的订单-->
+        <activity android:name=".ui.order.back.OrderManagerActivity" />
 
         <!--学车订单详情-->
         <activity
