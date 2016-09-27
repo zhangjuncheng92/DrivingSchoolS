@@ -36,21 +36,23 @@ public class StudyReceiveAdapter extends ZBaseRecyclerViewAdapter {
     class OrderManagerFrgViewHolder extends BaseViewHolder<OrderItem> {
         private TextView tvName;
         private TextView tvStatus;
-        private TextView tvNumber;
+        private TextView tvPhone;
         private TextView tvTime;
         private TextView tvReceive;
         private TextView tvDistribution;
         private TextView tvMoney;
+        private TextView tvTitle;
 
         public OrderManagerFrgViewHolder(ViewGroup parent) {
             super(parent, R.layout.study_receive_item);
             tvName = $(R.id.order_name);
             tvStatus = $(R.id.order_status);
-            tvNumber = $(R.id.order_number);
+            tvPhone = $(R.id.order_number);
             tvTime = $(R.id.order_time);
             tvReceive = $(R.id.order_receive);
             tvDistribution = $(R.id.order_distribution);
             tvMoney = $(R.id.order_money);
+            tvTitle = $(R.id.order_title);
         }
 
         @Override
@@ -58,11 +60,12 @@ public class StudyReceiveAdapter extends ZBaseRecyclerViewAdapter {
             if (service == null) {
                 return;
             }
-            tvName.setText(service.getTitle());
-            tvNumber.setText(service.getContactsname() + "：" + service.getContactsphone());
+            tvName.setText(service.getContactsname());
+            tvPhone.setText(service.getContactsphone());
             tvTime.setText(service.getCreatetime());
             tvMoney.setText(service.getTotal() + "元");
             tvStatus.setText(ConstantsParams.getStatus(service.getState()));
+            tvTitle.setText(service.getTitle());
             //	1.预订成功 2.已支付 3.申请退订 4.已退订 5.消费中 6.已消费 7.待评价 8.已完成 9.已取消
             if (service.getState().equals(ConstantsParams.STUDY_ORDER_ONE)) {
                 tvReceive.setVisibility(View.VISIBLE);

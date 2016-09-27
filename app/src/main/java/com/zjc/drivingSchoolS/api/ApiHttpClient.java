@@ -276,11 +276,13 @@ public class ApiHttpClient {
      * 参数：pagesize  uid offset   state  orderid creatdate
      * 调用示例：order/take/list
      */
-    public void getStudyOrders(String userId, int start, AsyncHttpResponseHandler asyncHttpResponseHandler) {
+    public void getStudyOrders(String userId, int start, String type, AsyncHttpResponseHandler asyncHttpResponseHandler) {
         JsonObject postRequest = new JsonObject();
         postRequest.addProperty("uid", userId);
         postRequest.addProperty("offset", start);
         postRequest.addProperty("pagesize", ConstantsParams.PAGE_SIZE);
+        postRequest.addProperty("state", ConstantsParams.STUDY_ORDER_TWO);
+        postRequest.addProperty("type", type);
         HttpUtilsAsync.post(Constants.BASE_URL + "order/take/list", postRequest, asyncHttpResponseHandler);
     }
 

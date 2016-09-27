@@ -75,7 +75,7 @@ public class OrderManagerFrg extends ZBaseToolBarFragment implements SwipeRefres
 
     @Override
     public void onRefresh() {
-        ApiHttpClient.getInstance().getStudyOrders(SharePreferencesUtil.getInstance().readUser().getUid(), ConstantsParams.PAGE_START, new ResultResponseHandler(getActivity(), getEmptyLayout()) {
+        ApiHttpClient.getInstance().getStudyOrders(SharePreferencesUtil.getInstance().readUser().getUid(), ConstantsParams.PAGE_START, null,new ResultResponseHandler(getActivity(), getEmptyLayout()) {
 
             @Override
             public void onResultSuccess(String result) {
@@ -88,7 +88,7 @@ public class OrderManagerFrg extends ZBaseToolBarFragment implements SwipeRefres
     }
 
     private void findOrders() {
-        ApiHttpClient.getInstance().getStudyOrders(SharePreferencesUtil.getInstance().readUser().getUid(), ConstantsParams.PAGE_START, new ResultResponseHandler(getActivity(), getEmptyLayout()) {
+        ApiHttpClient.getInstance().getStudyOrders(SharePreferencesUtil.getInstance().readUser().getUid(), ConstantsParams.PAGE_START, null,new ResultResponseHandler(getActivity(), getEmptyLayout()) {
 
             @Override
             public void onResultSuccess(String result) {
@@ -102,7 +102,7 @@ public class OrderManagerFrg extends ZBaseToolBarFragment implements SwipeRefres
     @Override
     public void onLoadMore() {
         int start = mAdapter.getCount();
-        ApiHttpClient.getInstance().getStudyOrders(SharePreferencesUtil.getInstance().readUser().getUid(), start, new ResultResponseHandler(getActivity(), getEmptyLayout()) {
+        ApiHttpClient.getInstance().getStudyOrders(SharePreferencesUtil.getInstance().readUser().getUid(), start, null,new ResultResponseHandler(getActivity(), getEmptyLayout()) {
 
             @Override
             public void onResultSuccess(String result) {

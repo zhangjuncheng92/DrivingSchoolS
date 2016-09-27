@@ -30,7 +30,7 @@ import de.greenrobot.event.EventBus;
  * Created by Administrator on 2016/8/17.
  */
 public class StudyReceiveFragment extends ZBaseFragment implements SwipeRefreshLayout.OnRefreshListener, ZBaseRecyclerViewAdapter.OnLoadMoreListener, ZBaseRecyclerViewAdapter.OnItemClickListener {
-    private String orderStatus;
+    private String type;
     private EasyRecyclerView mRecyclerView;
     private StudyReceiveAdapter mAdapter;
 
@@ -51,7 +51,7 @@ public class StudyReceiveFragment extends ZBaseFragment implements SwipeRefreshL
         EventBus.getDefault().register(this);
         Bundle bundle = getArguments();
         if (bundle != null) {
-            orderStatus = (String) bundle.getSerializable(Constants.ARGUMENT);
+            type = (String) bundle.getSerializable(Constants.ARGUMENT);
         }
     }
 
@@ -98,7 +98,7 @@ public class StudyReceiveFragment extends ZBaseFragment implements SwipeRefreshL
 
     @Override
     public void onRefresh() {
-        ApiHttpClient.getInstance().getStudyOrders(SharePreferencesUtil.getInstance().readUser().getUid(), ConstantsParams.PAGE_START, new ResultResponseHandler(getActivity(), mRecyclerView) {
+        ApiHttpClient.getInstance().getStudyOrders(SharePreferencesUtil.getInstance().readUser().getUid(), ConstantsParams.PAGE_START,type, new ResultResponseHandler(getActivity(), mRecyclerView) {
 
             @Override
             public void onResultSuccess(String result) {
@@ -111,7 +111,7 @@ public class StudyReceiveFragment extends ZBaseFragment implements SwipeRefreshL
     }
 
     private void findOrders() {
-        ApiHttpClient.getInstance().getStudyOrders(SharePreferencesUtil.getInstance().readUser().getUid(), ConstantsParams.PAGE_START, new ResultResponseHandler(getActivity(), getEmptyLayout()) {
+        ApiHttpClient.getInstance().getStudyOrders(SharePreferencesUtil.getInstance().readUser().getUid(), ConstantsParams.PAGE_START,type, new ResultResponseHandler(getActivity(), getEmptyLayout()) {
 
             @Override
             public void onResultSuccess(String result) {
@@ -125,7 +125,7 @@ public class StudyReceiveFragment extends ZBaseFragment implements SwipeRefreshL
     @Override
     public void onLoadMore() {
         int start = mAdapter.getCount();
-        ApiHttpClient.getInstance().getStudyOrders(SharePreferencesUtil.getInstance().readUser().getUid(), start, new ResultResponseHandler(getActivity()) {
+        ApiHttpClient.getInstance().getStudyOrders(SharePreferencesUtil.getInstance().readUser().getUid(), start, type,new ResultResponseHandler(getActivity()) {
 
             @Override
             public void onResultSuccess(String result) {

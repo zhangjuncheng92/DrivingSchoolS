@@ -10,10 +10,19 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/order_name"
-            style="@style/comm_title_gray"
+            android:id="@+id/order_title_text"
+            style="@style/comm_subtitle_black"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="订单名" />
+
+        <TextView
+            android:id="@+id/order_title"
+            style="@style/comm_subtitle_gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/layout_margin_l"
+            android:layout_toRightOf="@+id/order_title_text" />
 
         <TextView
             android:id="@+id/order_status"
@@ -21,45 +30,44 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:textColor="@color/comm_text" />
+            android:textColor="@color/comm_text"
+            android:visibility="gone" />
     </RelativeLayout>
+
+    <View
+        style="@style/line_horStyle_three"
+        android:layout_marginBottom="@dimen/layout_margin_l"
+        android:layout_marginTop="@dimen/layout_margin_l" />
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/layout_margin_ls">
+        android:layout_height="wrap_content">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/order_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/comm_subtitle" />
 
             <TextView
                 android:id="@+id/order_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:drawableLeft="@drawable/icon_phone"
+                android:gravity="center_vertical"
                 android:textColor="@color/comm_subtitle" />
-        </LinearLayout>
+        </RelativeLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginTop="@dimen/layout_margin_lss"
-            android:orientation="horizontal">
-
-
-            <TextView
-                android:id="@+id/order_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/comm_subtitle" />
-        </LinearLayout>
     </RelativeLayout>
 
     <View
         style="@style/line_horStyle_three"
-        android:layout_marginTop="@dimen/layout_margin_lss" />
+        android:layout_marginTop="@dimen/layout_margin_l" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -70,7 +78,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -84,6 +93,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/layout_margin_ls" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="预约时间"
+                android:textColor="@color/comm_text" />
+
+            <TextView
+                android:id="@+id/order_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/comm_subtitle" />
         </LinearLayout>
 
         <LinearLayout

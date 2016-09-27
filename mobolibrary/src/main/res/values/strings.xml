@@ -4,5 +4,5 @@
     <string name="error_view_no_data">暂无内容</string>
     <string name="error_view_loading">加载中</string>
     <string name="error_view_network_error_click_to_refresh">暂无网络</string>
-    <string name="error_view_no_data_study">附近暂无练车订单</string>
+    <string name="error_view_no_data_study">暂无订单</string>
 </resources>
