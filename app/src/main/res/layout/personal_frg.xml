@@ -112,7 +112,7 @@
 
         <View style="@style/line_horStyle" />
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -123,14 +123,18 @@
 
             <TextView
                 android:id="@+id/personal_frg_tv_lat"
-                android:layout_width="match_parent"
+                style="@style/comm_select_yellow"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/layout_margin_l"
                 android:gravity="right"
-                android:padding="@dimen/layout_padding_l"
+                android:padding="@dimen/layout_padding_ls"
                 android:text="更新位置"
-                android:textColor="@color/colorPrimaryDark" />
+                android:textSize="@dimen/text_size_body" />
 
-        </LinearLayout>
+        </RelativeLayout>
 
         <View style="@style/line_horStyle" />
 
